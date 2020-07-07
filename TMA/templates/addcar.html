@@ -1,0 +1,53 @@
+
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Dodaj Nowy Samochód</legend>
+                <div class="form-group">
+                    {{ form.marka.label(class="form-control-label") }}
+                    {% if form.marka.errors %}
+                        {{ form.marka(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.marka.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.marka(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.model.label(class="form-control-label") }}
+                    {% if form.model.errors %}
+                        {{ form.model(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.model.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.model(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.rejestracja.label(class="form-control-label") }}
+                    {% if form.rejestracja.errors %}
+                        {{ form.rejestracja(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.rejestracja.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.rejestracja(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                 <div class="form-group">
+                {{ form.add(class="btn btn-outline-info") }}
+                </div>
+
+                {% endblock content %}
