@@ -5,16 +5,18 @@
     <meta charset="utf-8">
     <title>Bootstrap</title>
     <link href = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", rel = "stylesheet">
-    <link href = "jquery.datetimepicker.min.css" rel = "stylesheet" >
+    <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+    <script src = "../static/dtest/jquery.js"></script>
+    <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
 </head>
 
 
     <div class = "container mt-5 mb-5" style="width: 500px">
-        <h3> Start Date Picker</h3>
-        <input type = "text" id = "picker1" class = "form-control">
-        <form method="POST" action="">
+{#        <input type = "text" id = "picker1" class = "form-control">#}
+        <form method="POST" action="/saveorder" role="form">
             <input id="csrf_token" name="csrf_token" type="hidden" value="Ijc4YzBhNTNmYTVmZDU1M2Q4NTZlNzNhMjM2NmNiMTUxNThiMWQ2YTYi.XwmtKw.IWi0Z6KoLHjuzHsg4-TIG5VLYiQ">
             <fieldset class="form-group">
+                <br><br><br>
                 <legend class="border-bottom mb-4">Dodawanie zlecenia</legend>
                 <div class="form-group">
 {#                    TODO branie id z bazy#}
@@ -37,6 +39,25 @@
                     <label class="form-control-label" for="customer_phone">Numer kontaktowy</label>
                     <input class="form-control form-control-lg" id="customer_phone" name="customer_phone" type="text" value="">
                 </div>
+{#                TODO alert wybrano inny dzień#}
+                <h3>Wybierz czas zlecenia`</h3>
+                <div class = "datepicker1">
+                    <input id = "datepicker_from" name="datepicker_from">
+                    </div>
+                    <script>
+                        $("#datepicker_from").datetimepicker();
+                    </script>
+                <p></p>
+                <div class = "datepicker2">
+                    <input id = "datepicker_to" name="datepicker_to">
+                    </div>
+                    <script>
+                        $("#datepicker_to").datetimepicker();
+                    </script>
+
+                <div>
+                    <button id="Submit" type="submit">Dodaj</button>
+                </div>
 {#                <div class="form-group">#}
 {#                    <label class="form-control-label" for="confirm_password">Powtórz hasło</label>#}
 {#                    <input class="form-control form-control-lg" id="confirm_password" name="confirm_password" required type="password" value="">#}
@@ -53,14 +74,14 @@
 {#            </div>#}
         </form>
     </div>
-    <script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src = "jquery.datetimepicker.full.min.js"></script>
-    <script>
-        $('#picker').datetimepicker({timepicker: true, datepicker: true, format: 'YYYY-MM-DD h:mm a'})
-
-    </script>
+{#    <script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
+{#    <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>#}
+{#    <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
+{#    <script src = "jquery.datetimepicker.full.min.js"></script>#}
+{#    <script>#}
+{#        $('#picker').datetimepicker({timepicker: true, datepicker: true, format: 'YYYY-MM-DD h:mm a'})#}
+{##}
+{#    </script>#}
 </body>
 </html>
 {% endblock content %}

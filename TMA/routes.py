@@ -8,7 +8,7 @@ from TMA.models import Uzytkownicy, Uprawnienia, Samochody
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
-
+from datetime import datetime
 
 db.create_all()
 
@@ -48,6 +48,16 @@ def register():
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
     return render_template('addorder.html', title='Dodaj zlecenie')
+
+
+@app.route("/saveorder", methods=['POST'])
+def save_order():
+    date_from =request.form['datepicker_from']
+    # date_to =request.form['datepicker_to']
+    print(date_from)
+
+    return redirect('/')
+
 
 
 @app.route("/login", methods=['GET', 'POST'])
