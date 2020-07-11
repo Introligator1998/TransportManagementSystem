@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
@@ -47,16 +47,24 @@ def register():
 
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
+    form = AddOrder()
+    if form.validate_on_submit():
+        order = Samochody(id_zlecenia=form.order_id, miejsce=form.place, cena=form.price, zleceniodawca=form.customer,
+                          telefon=form.customer_phone, czas_r=form.date_from, czas_z=form.form_to)
+        db.session.add(order)
+        db.session.commit()
+        return redirect(url_for('home'))
     return render_template('addorder.html', title='Dodaj zlecenie')
 
 
-@app.route("/saveorder", methods=['POST'])
-def save_order():
-    date_from =request.form['datepicker_from']
-    # date_to =request.form['datepicker_to']
-    print(date_from)
-
-    return redirect('/')
+# @app.route("/saveorder", methods=['POST'])
+# def save_order():
+#     form = AddOrder()
+#     date_from =request.form['datepicker_from']
+#     # date_to =request.form['datepicker_to']
+#     print(date_from)
+#
+#     return redirect('/')
 
 
 
