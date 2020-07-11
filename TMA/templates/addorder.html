@@ -12,8 +12,47 @@
     <div class = "container mt-5 mb-5" style="width: 500px">
         <h3> Start Date Picker</h3>
         <input type = "text" id = "picker1" class = "form-control">
+        <form method="POST" action="">
+            <input id="csrf_token" name="csrf_token" type="hidden" value="Ijc4YzBhNTNmYTVmZDU1M2Q4NTZlNzNhMjM2NmNiMTUxNThiMWQ2YTYi.XwmtKw.IWi0Z6KoLHjuzHsg4-TIG5VLYiQ">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Dodawanie zlecenia</legend>
+                <div class="form-group">
+{#                    TODO branie id z bazy#}
+                    <label class="form-control-label" for="name">id (TODO)</label>
+                    <input class="form-control form-control-lg" id="order_id" name="order_id" required type="text" value="">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="place">Miejsce</label>
+                    <input class="form-control form-control-lg" id="place" name="place" required type="text" value="">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="price">Wartość</label>
+                    <input class="form-control form-control-lg" id="price" name="price" required type="text" value="">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="customer">Zleceniodawca</label>
+                    <input class="form-control form-control-lg" id="customer" name="customer" type="text" value="">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="customer_phone">Numer kontaktowy</label>
+                    <input class="form-control form-control-lg" id="customer_phone" name="customer_phone" type="text" value="">
+                </div>
+{#                <div class="form-group">#}
+{#                    <label class="form-control-label" for="confirm_password">Powtórz hasło</label>#}
+{#                    <input class="form-control form-control-lg" id="confirm_password" name="confirm_password" required type="password" value="">#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label class="form-control-label" for="permissions">Uprawnienia</label>#}
+{#                        <ul class="form-control form-control-lg is-invalid" id="permissions"><li><input checked id="permissions-0" name="permissions" type="radio" value="1"> <label for="permissions-0">Manager</label></li><li><input id="permissions-1" name="permissions" type="radio" value="2"> <label for="permissions-1">Logistyk</label></li><li><input id="permissions-2" name="permissions" type="radio" value="3"> <label for="permissions-2">Kierowca</label></li></ul>#}
+{#                        <div class="invalid-feedback">#}
+{#                        </div>#}
+{#                </div>#}
+            </fieldset>
+{#            <div class="form-group">#}
+{#                <input class="btn btn-outline-info" id="submit" name="submit" type="submit" value="Sign Up">#}
+{#            </div>#}
+        </form>
     </div>
-
     <script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
