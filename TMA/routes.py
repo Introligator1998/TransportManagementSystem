@@ -34,6 +34,11 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+@app.route("/addorder", methods=['GET', 'POST'])
+def add_order():
+    return render_template('addorder.html', title='Dodaj zlecenie')
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
