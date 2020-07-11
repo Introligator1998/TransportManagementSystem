@@ -32,11 +32,11 @@ class Zlecenia (db.Model):
     __tablename__ = 'zlecenia'
     id_zlecenia = db.Column(db.Integer, primary_key = True)
     miejsce = db.Column(db.String(50), nullable = False)
-    data = db.Column(db.Date, nullable = False)
-    godzina_r = db.Column(db.Time, nullable = False)
-    godzina_z = db.Column(db.Time)
+    czas_r = db.Column(db.String(50), nullable = False)
+    czas_z = db.Column(db.String(50), nullable = False)
     cena = db.Column(db.Float)
-    nazwa = db.Column(db.String(50),nullable = False)
+    zleceniodawca = db.Column(db.String(50),nullable = False)
+    telefon = db.Column(db.String(15),nullable = False)
     db.relationship('ZleceniaSamochody', backref='zle')
 
 
@@ -66,3 +66,5 @@ class ZleceniaSamochody (db.Model):
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'), nullable = False)
     id_zlecenia = db.Column(db.Integer, db.ForeignKey('zlecenia.id_zlecenia'), nullable = False)
     id_uzytkownika = db.Column(db.Integer, db.ForeignKey('uzytkownicy.id_uzytkownika'), nullable = False)
+
+db.create_all()
