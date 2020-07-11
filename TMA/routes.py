@@ -6,8 +6,19 @@ from TMA import app, db, bcrypt
 from TMA.forms import  LoginForm, RegisterForm, AddCar
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
+
 
 db.create_all()
+
+class MyForm(FlaskForm):
+    date = DateField(id='datepick')
+
+@app.route('/date')
+def index():
+    form = MyForm()
+    return render_template('datepicker.html', form=form)
 @app.route("/")
 @app.route("/home")
 def home():

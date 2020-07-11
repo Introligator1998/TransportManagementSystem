@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+<script src = "../static/dtest/jquery.js"></script>
+<script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
+
+<div class = "datepicker1">
+<input id = "datetime" >
+</div>
+<script>
+    $("#datetime").datetimepicker();
+</script>
+
+{% endblock content %}
