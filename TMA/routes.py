@@ -57,6 +57,16 @@ def add_order():
         return redirect(url_for('add_order'))
     return render_template('addorder1.html', title='Dodaj zlecenie', form = form)
 
+@app.route("/showorder", methods=['GET', 'POST'])
+def show_order():
+    Orders = Zlecenia.query.all()
+    return render_template('showorder.html', Orders = Orders)
+
+@app.route("/showcars", methods=['GET', 'POST'])
+def show_cars():
+    Cars = Samochody.query.all()
+    return render_template('showcars.html', Cars = Cars)
+
 
 #@app.route("/saveorder", methods=['POST'])
 #def save_order():
@@ -79,7 +89,7 @@ def login():
             login_user(user, remember=form.remember.data)
             return redirect('home')
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+            flash('Login Nieudane. Sprawdź poprawność loginu i hasła', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
@@ -95,6 +105,7 @@ def add_car():
         car = Samochody(marka = form.marka.data,model = form.model.data, nr_rej=form.rejestracja.data)
         db.session.add(car)
         db.session.commit()
+        flash('Zlecenie zostało dodane!', 'success')
         return redirect(url_for('login'))
     return render_template('addcar.html', form = form)
 '''

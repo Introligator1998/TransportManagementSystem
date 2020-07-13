@@ -41,6 +41,7 @@ class Zlecenia (db.Model):
 
 
 
+
 class Uzytkownicy(db.Model, UserMixin):
     __tablename__ = 'uzytkownicy'
     id_uzytkownika = db.Column(db.Integer, primary_key=True)
