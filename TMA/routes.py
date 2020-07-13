@@ -3,8 +3,8 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar
-from TMA.models import Uzytkownicy, Uprawnienia, Samochody
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder
+from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
@@ -47,16 +47,24 @@ def register():
 
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
-    return render_template('addorder.html', title='Dodaj zlecenie')
+    form = AddOrder()
+    if form.is_submitted():
+        order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
+        telefon=form.customer_phone.data, czas_r=form.date_from.data, czas_z=form.date_to.data)
+        db.session.add(order)
+        db.session.commit()
+        flash('Zlecenie zostało dodane!', 'success')
+        return redirect(url_for('add_order'))
+    return render_template('addorder1.html', title='Dodaj zlecenie', form = form)
 
 
-@app.route("/saveorder", methods=['POST'])
-def save_order():
-    date_from =request.form['datepicker_from']
+#@app.route("/saveorder", methods=['POST'])
+#def save_order():
+    # date_from =request.form['datepicker_from']
     # date_to =request.form['datepicker_to']
-    print(date_from)
+    # print(date_from)
 
-    return redirect('/')
+    # return redirect('/')
 
 
 

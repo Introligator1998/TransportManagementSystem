@@ -67,4 +67,3 @@ class ZleceniaSamochody (db.Model):
     id_zlecenia = db.Column(db.Integer, db.ForeignKey('zlecenia.id_zlecenia'), nullable = False)
     id_uzytkownika = db.Column(db.Integer, db.ForeignKey('uzytkownicy.id_uzytkownika'), nullable = False)
 
-db.create_all()

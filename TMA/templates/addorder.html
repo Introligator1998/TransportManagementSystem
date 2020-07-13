@@ -12,14 +12,14 @@
 
 
     <div class = "container mt-5 mb-5" style="width: 500px">
-{#        <input type = "text" id = "picker1" class = "form-control">#}
-        <form method="POST" action="/saveorder" role="form">
+
+        <form method="POST" action="/addorder" role="form">
             <input id="csrf_token" name="csrf_token" type="hidden" value="Ijc4YzBhNTNmYTVmZDU1M2Q4NTZlNzNhMjM2NmNiMTUxNThiMWQ2YTYi.XwmtKw.IWi0Z6KoLHjuzHsg4-TIG5VLYiQ">
             <fieldset class="form-group">
                 <br><br><br>
                 <legend class="border-bottom mb-4">Dodawanie zlecenia</legend>
                 <div class="form-group">
-{#                    TODO branie id z bazy#}
+                   TODO branie id z bazy#}
                     <label class="form-control-label" for="name">id (TODO)</label>
                     <input class="form-control form-control-lg" id="order_id" name="order_id" required type="text" value="">
                 </div>
@@ -43,7 +43,7 @@
                 <h3>Wybierz czas zlecenia`</h3>
                 <div class = "datepicker1">
                     <input id = "datepicker_from" name="datepicker_from">
-                    </div>
+                </div>
                     <script>
                         $("#datepicker_from").datetimepicker();
                     </script>
