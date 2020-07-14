@@ -24,7 +24,7 @@ class Samochody(db.Model):
     marka = db.Column(db.String(50), nullable = False)
     model = db.Column(db.String(50), nullable = False)
     nr_rej = db.Column(db.String(12), nullable = False, unique = True)
-    data_przegladu = db.Column(db.Date, nullable = True)
+    data_przegladu = db.Column(db.String(25), nullable = True)
     db.relationship('ZleceniaSamochody', backref = 'zs')
 
 

@@ -41,6 +41,7 @@ class AddCar(FlaskForm):
     marka = StringField('Marka Samochodu', validators = [DataRequired()])
     model = StringField('Model Samochodu', validators=[DataRequired()])
     rejestracja = StringField('Numer Rejestracyjny Samochodu', validators=[DataRequired()])
+    przeglad = StringField('Termin następnego przeglądu', validators=[DataRequired()])
     add = SubmitField('Dodaj Samochód')
 
 class AddOrder(FlaskForm):

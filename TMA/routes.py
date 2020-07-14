@@ -102,10 +102,10 @@ def logout():
 def add_car():
     form = AddCar()
     if form.validate_on_submit():
-        car = Samochody(marka = form.marka.data,model = form.model.data, nr_rej=form.rejestracja.data)
+        car = Samochody(marka = form.marka.data,model = form.model.data, nr_rej=form.rejestracja.data, data_przegladu = form.przeglad.data)
         db.session.add(car)
         db.session.commit()
-        flash('Zlecenie zostało dodane!', 'success')
+        flash('Samochód został dodany!', 'success')
         return redirect(url_for('login'))
     return render_template('addcar.html', form = form)
 '''
