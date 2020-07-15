@@ -32,8 +32,7 @@ class Zlecenia (db.Model):
     __tablename__ = 'zlecenia'
     id_zlecenia = db.Column(db.Integer, primary_key = True)
     miejsce = db.Column(db.String(50), nullable = False)
-    czas_r = db.Column(db.String(50), nullable = False)
-    czas_z = db.Column(db.String(50), nullable = False)
+    czas_r = db.Column(db.DateTime, nullable = False)
     cena = db.Column(db.Float)
     zleceniodawca = db.Column(db.String(50),nullable = False)
     telefon = db.Column(db.String(15),nullable = False)

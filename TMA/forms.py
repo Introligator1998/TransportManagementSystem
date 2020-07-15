@@ -7,8 +7,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from TMA.models import Uzytkownicy
 
 class LoginForm(FlaskForm):
-    login = StringField('Login',
-                        validators=[DataRequired()])
+    login = StringField('Login', validators=[DataRequired()])
     email = StringField('Email', validators=[Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
