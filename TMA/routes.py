@@ -49,13 +49,16 @@ def register():
 def add_order():
     form = AddOrder()
     if form.is_submitted():
+        date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
+
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
-        telefon=form.customer_phone.data, czas_r=form.date_from.data, czas_z=form.date_to.data)
+                         telefon=form.customer_phone.data, czas_r=date_time_obj)
+
         db.session.add(order)
         db.session.commit()
         flash('Zlecenie zostało dodane!', 'success')
         return redirect(url_for('add_order'))
-    return render_template('addorder1.html', title='Dodaj zlecenie', form = form)
+    return render_template('addorder.html', title='Dodaj zlecenie', form = form)
 
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
@@ -77,7 +80,6 @@ def show_cars():
     # return redirect('/')
 
 
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -87,7 +89,11 @@ def login():
         user = Uzytkownicy.query.filter_by(login=form.login.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect('home')
+            if current_user.id_upr == 1:
+                return redirect('showcars')
+            # TODO na podstawie uprawnień
+            else:
+                return redirect('home')
         else:
             flash('Login Nieudane. Sprawdź poprawność loginu i hasła', 'danger')
     return render_template('login.html', title='Login', form=form)

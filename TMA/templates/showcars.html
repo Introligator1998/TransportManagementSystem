@@ -1,20 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
 <table style="width:100%" class=" table table-striped">
+<link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+<script src = "../static/dtest/jquery.js"></script>
+<script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
+
+
     <tr>
         <thead>
     <th>Marka</th>
     <th>Model</th>
         <th>Numer rejestracyjny</th>
     </thead>
-
     </tr>
     {% for cars in Cars %}
     <tr>
        <td> {{ cars.marka }} </td>
         <td> {{ cars.model }} </td>
         <td> {{ cars.nr_rej }} </td>
+        <td>
+            <button type="button" value="submit" name="{{ cars.id_samochodu }}" id="{{ cars.id_samochodu }}">Wybierz</button>
+        </td>
     </tr>
     {% endfor %}
+    <div class = "datepicker1">
+<input id = "datetime" >
+</div>
+<script>
+    $("#datetime").datetimepicker();
+</script
 </table>
 {% endblock content %}

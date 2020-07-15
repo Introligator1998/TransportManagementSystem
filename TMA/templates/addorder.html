@@ -1,87 +1,84 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<head>
-    <meta charset="utf-8">
-    <title>Bootstrap</title>
-    <link href = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", rel = "stylesheet">
-    <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
-    <script src = "../static/dtest/jquery.js"></script>
-    <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
-</head>
-
-
-    <div class = "container mt-5 mb-5" style="width: 500px">
-
-        <form method="POST" action="/addorder" role="form">
-            <input id="csrf_token" name="csrf_token" type="hidden" value="Ijc4YzBhNTNmYTVmZDU1M2Q4NTZlNzNhMjM2NmNiMTUxNThiMWQ2YTYi.XwmtKw.IWi0Z6KoLHjuzHsg4-TIG5VLYiQ">
+<link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+<script src = "../static/dtest/jquery.js"></script>
+<script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <br><br><br>
-                <legend class="border-bottom mb-4">Dodawanie zlecenia</legend>
+                <legend class="border-bottom mb-4">Dodawanie Nowego Zlecenia</legend>
                 <div class="form-group">
-                   TODO branie id z bazy#}
-                    <label class="form-control-label" for="name">id (TODO)</label>
-                    <input class="form-control form-control-lg" id="order_id" name="order_id" required type="text" value="">
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="place">Miejsce</label>
-                    <input class="form-control form-control-lg" id="place" name="place" required type="text" value="">
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="price">Wartość</label>
-                    <input class="form-control form-control-lg" id="price" name="price" required type="text" value="">
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="customer">Zleceniodawca</label>
-                    <input class="form-control form-control-lg" id="customer" name="customer" type="text" value="">
+                    {{ form.customer.label(class="form-control-label") }}
+                    {% if form.customer.errors %}
+                        {{ form.customer(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.customer.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.customer(class="form-control form-control-lg") }}
+                    {% endif %}
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="customer_phone">Numer kontaktowy</label>
-                    <input class="form-control form-control-lg" id="customer_phone" name="customer_phone" type="text" value="">
-                </div>
-{#                TODO alert wybrano inny dzień#}
-                <h3>Wybierz czas zlecenia`</h3>
-                <div class = "datepicker1">
-                    <input id = "datepicker_from" name="datepicker_from">
-                </div>
-                    <script>
-                        $("#datepicker_from").datetimepicker();
-                    </script>
-                <p></p>
-                <div class = "datepicker2">
-                    <input id = "datepicker_to" name="datepicker_to">
-                    </div>
-                    <script>
-                        $("#datepicker_to").datetimepicker();
-                    </script>
+                    {{ form.customer_phone.label(class="form-control-label") }}
 
-                <div>
-                    <button id="Submit" type="submit">Dodaj</button>
+                    {% if form.customer_phone.errors %}
+                        {{ form.customer_phone(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.customer_phone.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.customer_phone(class="form-control form-control-lg") }}
+                    {% endif %}
                 </div>
-{#                <div class="form-group">#}
-{#                    <label class="form-control-label" for="confirm_password">Powtórz hasło</label>#}
-{#                    <input class="form-control form-control-lg" id="confirm_password" name="confirm_password" required type="password" value="">#}
-{#                </div>#}
-{#                <div class="form-group">#}
-{#                    <label class="form-control-label" for="permissions">Uprawnienia</label>#}
-{#                        <ul class="form-control form-control-lg is-invalid" id="permissions"><li><input checked id="permissions-0" name="permissions" type="radio" value="1"> <label for="permissions-0">Manager</label></li><li><input id="permissions-1" name="permissions" type="radio" value="2"> <label for="permissions-1">Logistyk</label></li><li><input id="permissions-2" name="permissions" type="radio" value="3"> <label for="permissions-2">Kierowca</label></li></ul>#}
-{#                        <div class="invalid-feedback">#}
-{#                        </div>#}
-{#                </div>#}
-            </fieldset>
-{#            <div class="form-group">#}
-{#                <input class="btn btn-outline-info" id="submit" name="submit" type="submit" value="Sign Up">#}
-{#            </div>#}
+                <div class="form-group">
+                    {{ form.place.label(class="form-control-label") }}
+
+                    {% if form.place.errors %}
+                        {{ form.place(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.place.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.place(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.price.label(class="form-control-label") }}
+                    {% if form.price.errors %}
+                        {{ form.price(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.price.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.price(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+
+                <div class ="form-group">
+                    {{ form.date_from.label(class="form-control-label") }}
+                    {{ form.date_from(class="form-control form-control-lg") }}
+                </div>
+                    <script>
+                        $("#date_from").datetimepicker();
+                    </script>
+                <div class="form-group">
+                {{ form.sub(class="btn btn-outline-info") }}
+                </div>
         </form>
     </div>
-{#    <script src = "https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
-{#    <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>#}
-{#    <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>#}
-{#    <script src = "jquery.datetimepicker.full.min.js"></script>#}
-{#    <script>#}
-{#        $('#picker').datetimepicker({timepicker: true, datepicker: true, format: 'YYYY-MM-DD h:mm a'})#}
-{##}
-{#    </script>#}
-</body>
-</html>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+        </small>
+    </div>
 {% endblock content %}
