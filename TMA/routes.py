@@ -49,6 +49,7 @@ def register():
 def add_order():
     form = AddOrder()
     if form.is_submitted():
+
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
         telefon=form.customer_phone.data, czas_r=form.date_from.data, czas_z=form.date_to.data)
         db.session.add(order)
