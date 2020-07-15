@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<table style="width:100%" class=" table table-striped">
+    <tr>
+        <thead>
+    <th>Marka</th>
+    <th>Model</th>
+        <th>Numer rejestracyjny</th>
+    </thead>
+
+    </tr>
+    {% for cars in Cars %}
+    <tr>
+       <td> {{ cars.marka }} </td>
+        <td> {{ cars.model }} </td>
+        <td> {{ cars.nr_rej }} </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
