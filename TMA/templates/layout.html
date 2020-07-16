@@ -22,9 +22,12 @@
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-          <img src = "../static/img/logo.png" width="90" height="80">
+          <img class = "navbar-brand" src =" ../static/img/logo.png" width="90" height="80" usemap="#workmap">
+            <map name = "workmap">
+                <area shape="rect" coords="0,0,90,90" alt="Home" href="{{ url_for('home') }}">
+            </map>
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Twoja Dostawa Transport Management System </a>
+          <a class="navbar-brand md-4 display-2" href="/">Twoja Dostawa Transport Management System </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -39,24 +42,45 @@
 
                 {% if current_user.id_upr == 1 %}
 
-                    <div class="dropdown">
+                    <div class="dropdown container-fluid col-md-4">
                         <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                              Zlecenia
                          </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="nav-item nav-link" href="{{ url_for('add_order') }}">Dodaj zlecenie</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-menu container-fluid" style="float:left" aria-labelledby="dropdownMenuButton">
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('add_order') }}">Dodaj zlecenie</a>
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('show_order') }}">Lista zleceń</a>
                         </div>
                     </div>
-                    <a class="nav-item nav-link" href="{{ url_for('add_car') }}">Dodaj Nowy Samochód</a>
-                    <a class="nav-item nav-link" href="{{ url_for('add_order') }}">Dodaj zlecenie</a>
+                    <div class="dropdown container-fluid col-md-2">
+                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Samochody
+                         </button>
+                        <div class="dropdown-menu container-fluid bg-primary float-sm-left"  aria-labelledby="dropdownMenuButton" >
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('add_car') }}">Dodaj Nowy Samochód</a>
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('show_cars') }}">Lista Samochodów</a>
+                        </div>
+                    </div>
+                    <div class="dropdown container-fluid col-md-2">
+                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Użytkownicy
+                         </button>
+                        <div class="dropdown-menu container-fluid bg-primary"  aria-labelledby="dropdownMenuButton" >
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('register') }}">Stwórz użytkownika</a>
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('about') }}">Usuń użytkownika</a>
+                        </div>
+                    </div>
+
+
                     <a class="nav-item nav-link" href="{{ url_for('about') }}">Account</a>
                     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                 {% elif current_user.id_upr == 2 %}
                     <a class="nav-item nav-link" href="{{ url_for('add_order') }}">Dodaj zlecenie</a>
                     <a class="nav-item nav-link" href="{{ url_for('about') }}">Account</a>
                     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <script>
+                        $("#date_from").datetimepicker();
+                    </script>
+
                 {% elif current_user.id_upr == 3 %}
                     <a class="nav-item nav-link" href="{{ url_for('about') }}">Account</a>
                     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
@@ -85,19 +109,7 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
-          <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
-              </ul>
-            </p>
-          </div>
-        </div>
+
       </div>
     </main>
 </body>
