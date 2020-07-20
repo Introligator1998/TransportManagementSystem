@@ -48,17 +48,18 @@ def register():
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
     form = AddOrder()
+    Cars = Samochody.query.all()
     if form.is_submitted():
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
 
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
                          telefon=form.customer_phone.data, czas_r=date_time_obj)
-
+        # TODO zapisywanie relacji samochod-zlecenie
         db.session.add(order)
         db.session.commit()
         flash('Zlecenie zostało dodane!', 'success')
         return redirect(url_for('add_order'))
-    return render_template('addorder.html', title='Dodaj zlecenie', form = form)
+    return render_template('addorder.html', title='Dodaj zlecenie', form = form, Cars=Cars)
 
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
@@ -69,6 +70,14 @@ def show_order():
 def show_cars():
     Cars = Samochody.query.all()
     return render_template('showcars.html', Cars = Cars)
+
+
+@app.route("/showordersforcar", methods=['GET', 'POST|'])
+def show_orders_for_car():
+    pass
+    # TODO zlecenia dla samochodu
+    # Orders = Zlecenia.query.filter_by(ZleceniaSamochody)
+    # return render_template('showorder.html', Orders = Orders)
 
 
 #@app.route("/saveorder", methods=['POST'])

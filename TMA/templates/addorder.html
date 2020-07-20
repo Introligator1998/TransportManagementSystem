@@ -62,7 +62,12 @@
                         {{ form.price(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-
+                <p>Wybierz samochód</p>
+                <select name= "cars">
+                {% for car in Cars %}
+                    <option value= "{{car.id_samochodu}}" SELECTED>{{car.nr_rej}}</option>"
+                {% endfor %}
+                </select>
 
                 <div class ="form-group">
                     {{ form.date_from.label(class="form-control-label") }}
