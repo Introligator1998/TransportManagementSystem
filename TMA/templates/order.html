@@ -1,20 +1,19 @@
-{{% extends "layout.html" %}
+{% extends "layout.html" %}
 {% block content %}
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
         <a class="mr-2" href="#">{{ order.customer }}</a>
-        {% if post.author == current_user %}
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_post', order_id=order.id_zlecenia) }}">Update</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_order', id_order=order.id_zlecenia) }}">Update</a>
             <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
           </div>
-        {% endif %}
+
       </div>
-      <h2 class="article-title">{{ order.customer }}</h2>
-      <p class="article-content">{{ order.customer }}</p>
+      <h2 class="article-title">{{ order.zleceniodawca }}</h2>
+      <p class="article-content">{{ order.miejsce }}</p>
     </div>
   </article>
   <!-- Modal -->
 
-{% endblock content %}}
+{% endblock content %}

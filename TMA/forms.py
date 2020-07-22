@@ -54,13 +54,13 @@ class AddOrder(FlaskForm):
     # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
     sub = SubmitField('Dodaj Zlecenie')
 
-class UpadteOrder(FlaskForm):
+class UpdateOrder(FlaskForm):
     #order_id = StringField('ID zlecenia', validators=[DataRequired()])
-    customer = StringField('Zleceniodawca', validators=[DataRequired()])
-    place = StringField('Miejsce zlecenia', validators=[DataRequired()])
-    price = StringField('Wartość zlecenia', validators=[DataRequired()])
-    customer_phone = StringField('Telefon do zleceniodawcy', validators=[DataRequired()])
-    date_from = StringField('Czas rozpoczęcia', validators=[DataRequired()])
+    customer = StringField('Zleceniodawca')
+    place = StringField('Miejsce zlecenia')
+    price = StringField('Wartość zlecenia')
+    customer_phone = StringField('Telefon do zleceniodawcy')
+    date_from = StringField('Czas rozpoczęcia')
     cars = StringField('Dodaj Samochod')
     # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
     sub = SubmitField('Dodaj Zlecenie')

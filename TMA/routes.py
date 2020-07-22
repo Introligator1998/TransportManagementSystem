@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSamochody
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
@@ -66,7 +66,7 @@ def add_order():
 @app.route("/order/<int:id_order>")
 def order(id_order):
     Order = Zlecenia.query.get_or_404(id_order)
-    return render_template('order.html')
+    return render_template('order.html', order = Order)
 
 @app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])
 @login_required
@@ -74,18 +74,18 @@ def update_order(id_order):
     Order = Zlecenia.query.get_or_404(id_order)
     # if post.author != current_user:
     #     abort(403)
-    # form = PostForm()
-    # if form.validate_on_submit():
-    #     post.title = form.title.data
-    #     post.content = form.content.data
-    #     db.session.commit()
-    #     flash('Your post has been updated!', 'success')
-    #     return redirect(url_for('post', post_id=post.id))
+    form = UpdateOrder()
+    if form.validate_on_submit():
+        Order.zleceniodawca = form.customer.data
+        Order.miejsce = form.place.data
+        db.session.commit()
+        flash('Your post has been updated!', 'success')
+        return redirect(url_for('order', id_order=Order.id_zlecenia))
     # elif request.method == 'GET':
     #     form.title.data = post.title
     #     form.content.data = post.content
     return render_template('updateorder.html', title='Update Order',
-                            legend='Update Order',Order = Order)
+                            legend='Update Order',Order = Order, form = form)
 
 
 

@@ -12,14 +12,11 @@
     </tr>
     {% for order in Orders %}
     <tr>
-       <td> {{ order.zleceniodawca }} </td>
+        <td> <a href="{{ url_for('order', id_order=order.id_zlecenia) }}">{{ order.zleceniodawca }}</a></td>
         <td> {{ order.telefon }} </td>
         <td> {{ order.miejsce }} </td>
         <td> {{order.czas_r}}</td>
         <td> {{order.samochod}}</td>
-        <td>
-            <button type="submit" value="submit" name="" id="" formaction="">Aktualizuj</button>
-        </td>
     </tr>
     {% endfor %}
 </table>
