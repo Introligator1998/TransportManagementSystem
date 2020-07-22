@@ -5,15 +5,36 @@
       <div class="article-metadata">
         <a class="mr-2" href="#">{{ order.customer }}</a>
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_order', id_order=order.id_zlecenia) }}">Update</a>
-            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_order', id_order=order.id_zlecenia) }}">Zmień</a>
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Usuń</button>
           </div>
 
       </div>
-      <h2 class="article-title">{{ order.zleceniodawca }}</h2>
-      <p class="article-content">{{ order.miejsce }}</p>
+      <h5 class="article-title">Klient:    {{ order.zleceniodawca }}</h5>
+      <h5 class="article-title">Telefon:   {{ order.telefon }}</h5>
+      <h5 class="article-title">Adres:     {{ order.miejsce }}</h5>
+      <h5 class="article-title">Termin:    {{ order.czas_r }}</h5>
+      <h5 class="article-title">Samochód:  {{ order.samochod }}</h5>
+      <h5 class="article-title">Wartość:   {{ order.cena }}</h5>
     </div>
   </article>
-  <!-- Modal -->
+<!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Czy na pewno chcesz usunąć zlecenie?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+,          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+          <form action="{{ url_for('delete_order', id_order=order.id_zlecenia) }}" method="GET">
+            <input class="btn btn-danger" type="submit" value="Usuń">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock content %}

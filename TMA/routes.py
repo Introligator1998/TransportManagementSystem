@@ -13,23 +13,18 @@ from datetime import datetime
 from sqlalchemy import text
 db.create_all()
 
-class MyForm(FlaskForm):
-    date = DateField(id='datepick')
-
 @app.route('/date')
 def index():
-    form = MyForm()
-    return render_template('datepicker.html', form=form)
+    return render_template('datepicker.html')
+
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('home.html', title = 'Home')
 
-
 @app.route("/about")
 def about():
     return render_template('about.html', title='About')
-
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -45,7 +40,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
     form = AddOrder()
@@ -53,7 +47,6 @@ def add_order():
     Cars = Samochody.query.all()
     if form.is_submitted():
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
-
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
                          telefon=form.customer_phone.data, czas_r=date_time_obj, samochod = form.cars.data)
         # TODO zapisywanie relacji samochod-zlecenie
@@ -84,11 +77,17 @@ def update_order(id_order):
     # elif request.method == 'GET':
     #     form.title.data = post.title
     #     form.content.data = post.content
-    return render_template('updateorder.html', title='Update Order',
+    return render_template('addorder.html', title='Update Order',
                             legend='Update Order',Order = Order, form = form)
 
-
-
+@app.route("/order/<int:id_order>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_order(id_order):
+    Order = Zlecenia.query.get_or_404(id_order)
+    db.session.delete(Order)
+    db.session.commit()
+    flash('Zlecenie zostało usunięte', 'success')
+    return redirect(url_for('show_order'))
 
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
@@ -105,24 +104,12 @@ def show_cars():
     print(names)
     return render_template('showcars.html', Cars = Cars)
 
-
 @app.route("/showordersforcar", methods=['GET', 'POST|'])
 def show_orders_for_car():
     pass
     # TODO zlecenia dla samochodu
     # Orders = Zlecenia.query.filter_by(ZleceniaSamochody)
     # return render_template('showorder.html', Orders = Orders)
-
-
-#@app.route("/saveorder", methods=['POST'])
-#def save_order():
-    # date_from =request.form['datepicker_from']
-    # date_to =request.form['datepicker_to']
-    # print(date_from)
-
-    # return redirect('/')
-
-
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -173,47 +160,6 @@ def save_picture(form_picture):
     return picture_fn
 
 
-@app.route("/account", methods=['GET', 'POST'])
-@login_required
-def account():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
-        return redirect(url_for('account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
-
-
-@app.route("/post/new", methods=['GET', 'POST'])
-@login_required
-def new_post():
-    form = PostForm()
-    if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
-        db.session.add(post)
-        db.session.commit()
-        flash('Your post has been created!', 'success')
-        return redirect(url_for('home'))
-    return render_template('create_post.html', title='New Post',
-                           form=form, legend='New Post')
-
-
-@app.route("/post/<int:post_id>")
-def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
-
-
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_post(post_id):
@@ -234,14 +180,5 @@ def update_post(post_id):
                            form=form, legend='Update Post')
 
 
-@app.route("/post/<int:post_id>/delete", methods=['POST'])
-@login_required
-def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
-        abort(403)
-    db.session.delete(post)
-    db.session.commit()
-    flash('Your post has been deleted!', 'success')
-    return redirect(url_for('home'))
+
 '''
