@@ -19,7 +19,7 @@
         <td> {{ cars.model }} </td>
         <td> {{ cars.nr_rej }} </td>
         <td>
-            <button type="submit" value="submit" name="{{ cars.id_samochodu }}" id="{{ cars.id_samochodu }}">Wybierz</button>
+            <button type="submit" value="submit" name="{{ cars.id_samochodu }}" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_order') }}">Wybierz</button>
         </td>
     </tr>
     {% endfor %}

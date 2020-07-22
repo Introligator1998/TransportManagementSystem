@@ -5,6 +5,9 @@
     <th>Klient</th>
     <th>Telefon</th>
         <th>Lokalizacja</th>
+        <th>Czas zlecenia</th>
+        <th>Samochód</th>
+
 
     </tr>
     {% for order in Orders %}
@@ -12,9 +15,12 @@
        <td> {{ order.zleceniodawca }} </td>
         <td> {{ order.telefon }} </td>
         <td> {{ order.miejsce }} </td>
-
+        <td> {{order.czas_r}}</td>
+        <td> {{order.samochod}}</td>
+        <td>
+            <button type="submit" value="submit" name="" id="" formaction="">Aktualizuj</button>
+        </td>
     </tr>
-
     {% endfor %}
 </table>
 {% endblock content %}

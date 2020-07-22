@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+<script src = "../static/dtest/jquery.js"></script>
+<script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
+
+<form method="POST" action="">
+    <div class="container" syle = "float: left">
+        <div class="col-sm-6" style="height:130px;">
+            <div class="form-group">
+                {{ form.date.label(class="form-control-label") }}
+                {{ form.date(class="form-control form-control-lg") }}
+
+            </div>
+
+        </div>
+    </div>
+</form>
+    <script type="text/javascript">
+        $(function () {
+            $('#date').datetimepicker({
+                viewMode: 'years'
+            });
+        });
+    </script>
+</div>
+{% endblock content %}
