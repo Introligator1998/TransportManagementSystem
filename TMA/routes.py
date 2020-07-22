@@ -4,12 +4,13 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
 from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder
-from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia
+from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSamochody
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
 from datetime import datetime
 
+from sqlalchemy import text
 db.create_all()
 
 class MyForm(FlaskForm):
@@ -48,27 +49,33 @@ def register():
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
     form = AddOrder()
+    Order = Zlecenia.query.all()
     Cars = Samochody.query.all()
     if form.is_submitted():
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
 
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
-                         telefon=form.customer_phone.data, czas_r=date_time_obj)
+                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data)
         # TODO zapisywanie relacji samochod-zlecenie
         db.session.add(order)
         db.session.commit()
         flash('Zlecenie zostało dodane!', 'success')
         return redirect(url_for('add_order'))
-    return render_template('addorder.html', title='Dodaj zlecenie', form = form, Cars=Cars)
+    return render_template('addorder.html', title='Dodaj zlecenie', form = form, Order=Order, Cars = Cars)
 
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
     Orders = Zlecenia.query.all()
-    return render_template('showorder.html', Orders = Orders)
+    CarOders = ZleceniaSamochody.query.all()
+    return render_template('showorder.html', Orders = Orders, CarOrders=CarOders)
 
 @app.route("/showcars", methods=['GET', 'POST'])
 def show_cars():
     Cars = Samochody.query.all()
+    sql = text('select marka from samochody')
+    result = db.engine.execute(sql)
+    names = [row[0] for row in result]
+    print(names)
     return render_template('showcars.html', Cars = Cars)
 
 
