@@ -36,7 +36,9 @@ class Zlecenia (db.Model):
     cena = db.Column(db.Float)
     zleceniodawca = db.Column(db.String(50),nullable = False)
     telefon = db.Column(db.String(15),nullable = False)
+    samochod = db.Column(db.String(15), nullable = False)
     db.relationship('ZleceniaSamochody', backref='zle')
+
 
 
 
