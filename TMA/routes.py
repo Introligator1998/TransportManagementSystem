@@ -63,6 +63,33 @@ def add_order():
         return redirect(url_for('add_order'))
     return render_template('addorder.html', title='Dodaj zlecenie', form = form, Order=Order, Cars = Cars)
 
+@app.route("/order/<int:id_order>")
+def order(id_order):
+    Order = Zlecenia.query.get_or_404(id_order)
+    return render_template('order.html')
+
+@app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])
+@login_required
+def update_order(id_order):
+    Order = Zlecenia.query.get_or_404(id_order)
+    # if post.author != current_user:
+    #     abort(403)
+    # form = PostForm()
+    # if form.validate_on_submit():
+    #     post.title = form.title.data
+    #     post.content = form.content.data
+    #     db.session.commit()
+    #     flash('Your post has been updated!', 'success')
+    #     return redirect(url_for('post', post_id=post.id))
+    # elif request.method == 'GET':
+    #     form.title.data = post.title
+    #     form.content.data = post.content
+    return render_template('updateorder.html', title='Update Order',
+                            legend='Update Order',Order = Order)
+
+
+
+
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
     Orders = Zlecenia.query.all()
