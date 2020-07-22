@@ -50,7 +50,7 @@ class AddOrder(FlaskForm):
     price = StringField('Wartość zlecenia', validators=[DataRequired()])
     customer_phone = StringField('Telefon do zleceniodawcy', validators=[DataRequired()])
     date_from = StringField('Czas rozpoczęcia', validators=[DataRequired()])
-    cars = StringField('Dodaj Samochod')
+    id_car = StringField('Dodaj Samochod')
     # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
     sub = SubmitField('Dodaj Zlecenie')
 

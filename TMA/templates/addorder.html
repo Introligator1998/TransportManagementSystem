@@ -63,7 +63,7 @@
                     {% endif %}
                 </div>
                 <p>Wybierz samochód</p>
-                <select name= "cars">
+                <select name= "id_car">
                 {% for car in Cars %}
                     <option value= "{{car.nr_rej}}" SELECTED>{{car.nr_rej}}</option>"
                 {% endfor %}

@@ -55,7 +55,7 @@ def add_order():
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
 
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
-                         telefon=form.customer_phone.data, czas_r=date_time_obj, samochod = form.cars.data)
+                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data)
         # TODO zapisywanie relacji samochod-zlecenie
         db.session.add(order)
         db.session.commit()
