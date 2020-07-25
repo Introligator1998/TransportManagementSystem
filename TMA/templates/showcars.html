@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
+    <br>
+    <br>
+    <br>
     <form role="form" method="post" action="/show_car_order">
         <table style="width:100%" class=" table table-striped">
 <link href = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -26,6 +29,7 @@
         </td>
     </tr>
     {% endfor %}
+</table>
 <div class ="container mt-5 mb-5" style="width:400px">
     <h3>Wybierz datę</h3>
     <input type="text" id="dateorder" class="form-control">
@@ -41,7 +45,5 @@
         format: 'Y-m-d'
     })
 </script>
-</table>
-    </form>
-
+</form>
 {% endblock content %}
