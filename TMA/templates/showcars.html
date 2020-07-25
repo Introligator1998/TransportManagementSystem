@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <form>
+    <form role="form" method="post" action="/show_car_order">
         <table style="width:100%" class=" table table-striped">
 <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
 <script src = "../static/dtest/jquery.js"></script>
@@ -8,27 +8,28 @@
 <table class = table>
     <tr>
         <thead>
-    <th>Marka</th>
-    <th>Model</th>
-        <th>Numer rejestracyjny</th>
-         <th>Data Przeglądu</th>
-    </thead>
+            <th>Nazwa</th>
+            <th>Model</th>
+            <th>Numer rejestracyjny</th>
+            <th>Data przeglądu</th>
+        </thead>
     </tr>
     {% for cars in Cars %}
     <tr>
-        <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.marka }}</a></td>
+        <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.nazwa }}</a></td>
         <td> {{ cars.model }} </td>
         <td> {{ cars.nr_rej }} </td>
-        <td> {{ cars.data_przegladu }}
-            <button type="submit" value="submit" name="{{ cars.id_samochodu }}" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_order') }}">Wybierz</button>
+        <td> {{ cars.data_przegladu }}</td>
+        <td>
+            <button type="submit" value="{{ cars.id_samochodu }}" name="id_car" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_car_order') }}">Wybierz</button>
         </td>
     </tr>
     {% endfor %}
     <div class = "datepicker1">
-<input id = "datetime" >
+<input id = "dateorder" name="dateorder">
 </div>
 <script>
-    $("#datetime").datetimepicker({
+    $("#dateorder").datetimepicker({
         dateonly: true
     });
 </script>

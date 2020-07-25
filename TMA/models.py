@@ -22,10 +22,11 @@ class Samochody(db.Model):
     __tablename__ = 'samochody'
     id_samochodu = db.Column(db.Integer, primary_key = True)
     marka = db.Column(db.String(50), nullable = False)
+    nazwa = db.Column(db.String(50), nullable = False)
     model = db.Column(db.String(50), nullable = False)
-    nr_rej = db.Column(db.String(12), nullable = False, unique = True)
+    nr_rej = db.Column(db.String(12), nullable = False)
     data_przegladu = db.Column(db.String(25), nullable = True)
-    db.relationship('ZleceniaSamochody', backref = 'zs')
+    # db.relationship('ZleceniaSamochody', backref = 'zs')
 
 
 class Zlecenia (db.Model):
@@ -36,8 +37,8 @@ class Zlecenia (db.Model):
     cena = db.Column(db.Float)
     zleceniodawca = db.Column(db.String(50),nullable = False)
     telefon = db.Column(db.String(15),nullable = False)
-    samochod = db.Column(db.String(15), nullable = False)
-    db.relationship('ZleceniaSamochody', backref='zle')
+    id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
+    # db.relationship('ZleceniaSamochody', backref='zle')
 
 
 
@@ -52,7 +53,7 @@ class Uzytkownicy(db.Model, UserMixin):
     password = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=True)
     id_upr = db.Column(db.Integer, db.ForeignKey('uprawnienia.id_uprawnien'),nullable=False)
-    db.relationship('ZleceniaSamochody', backref='zled')
+    # db.relationship('ZleceniaSamochody', backref='zled')
 
     def get_id(self):
         return (self.id_uzytkownika)
