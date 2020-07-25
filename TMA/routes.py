@@ -28,8 +28,8 @@ def about():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
+    #if current_user.is_authenticated:
+     #   return redirect(url_for('home'))
     form = RegisterForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -37,7 +37,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route("/addorder", methods=['GET', 'POST'])
@@ -73,6 +73,7 @@ def update_car(id_car):
         Car.model = form.model.data
         Car.nr_rej = form.rejestracja.data
         Car.data_przegladu = form.przeglad.data
+        Car.nazwa = form.nazwa.data
         db.session.commit()
         flash('Pomyślnie zaktualizowano samochod', 'success')
         return redirect(url_for('car', id_car=Car.id_samochodu))
@@ -82,7 +83,7 @@ def update_car(id_car):
     return render_template('addcar.html', title='Update Car',
                             legend='Update Car',Car = Car, form = form)
 
-@app.route("/car/<int:id_car>/car", methods=['GET', 'POST'])
+@app.route("/car/<int:id_car>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_car(id_car):
     Car = Samochody.query.get_or_404(id_car)
@@ -100,6 +101,7 @@ def order(id_order):
 @login_required
 def update_order(id_order):
     Order = Zlecenia.query.get_or_404(id_order)
+    Cars = Samochody.query.all()
     # if post.author != current_user:
     #     abort(403)
     form = UpdateOrder()
@@ -113,7 +115,7 @@ def update_order(id_order):
     #     form.title.data = post.title
     #     form.content.data = post.content
     return render_template('addorder.html', title='Update Order',
-                            legend='Update Order',Order = Order, form = form)
+                            legend='Update Order',Order = Order,Cars = Cars, form = form)
 
 @app.route("/order/<int:id_order>/delete", methods=['GET', 'POST'])
 @login_required
@@ -128,7 +130,8 @@ def delete_order(id_order):
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
     Orders = Zlecenia.query.all()
-    return render_template('showorder.html', Orders=Orders)
+    Car = Samochody.query.all()
+    return render_template('showorder.html', Orders=Orders, Car = Car)
 
 # TODO
 @app.route("/showcarorder", methods=['GET', 'POST'])

@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-  <article class="media content-section">
+<article class="media content-section" xmlns="http://www.w3.org/1999/html">
     <div class="media-body">
       <div class="article-metadata">
         <a class="mr-2" href="#">{{ car.marka }}</a>
@@ -10,10 +10,24 @@
           </div>
 
       </div>
-      <h5 class="article-title">Marka:    {{ car.marka }}</h5>
-      <h5 class="article-title">Model:   {{ car.model }}</h5>
-      <h5 class="article-title">Nr Rejestracyjny:     {{ car.nr_rej }}</h5>
-      <h5 class="article-title">Termin następnego przeglądu:    {{ car.data_przegladu }}</h5>
+      <table class= "table table-striped">
+          <tr>
+            <td><h6 class="article-title">Marka</h6></td>
+            <td><h6 class="article-title"> {{ car.marka }}</h6></td>
+          </tr>
+          <tr>
+            <td><h6 class="article-title">Model</h6></td>
+            <td><h6 class="article-title"> {{ car.model }}</h6></td>
+          </tr>
+          <tr>
+            <td><h6 class="article-title">Nr rejestracyjny</h6></td>
+            <td><h6 class="article-title"> {{ car.nr_rej }}</h6></td>
+          </tr>
+          <tr>
+            <td><h6 class="article-title">Data przeglądu </h6></td>
+            <td><h6 class="article-title"> {{ car.data_przegladu }}</h6></td>
+          </tr>
+    </table>
     </div>
   </article>
 <!-- Modal -->
@@ -21,7 +35,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Czy na pewno chcesz usunąć zlecenie?</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Czy na pewno chcesz usunąć samochód?</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 ,          </button>
         </div>

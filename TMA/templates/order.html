@@ -10,12 +10,32 @@
           </div>
 
       </div>
-      <h5 class="article-title">Klient:    {{ order.zleceniodawca }}</h5>
-      <h5 class="article-title">Telefon:   {{ order.telefon }}</h5>
-      <h5 class="article-title">Adres:     {{ order.miejsce }}</h5>
-      <h5 class="article-title">Termin:    {{ order.czas_r }}</h5>
-      <h5 class="article-title">Samochód:  {{ order.samochod }}</h5>
-      <h5 class="article-title">Wartość:   {{ order.cena }}</h5>
+      <table class= "table table-striped">
+          <tr>
+            <td><h5 class="article-title">Klient</h5></td>
+            <td><h6 class="article-title"> {{ order.zleceniodawca }}</h6></td>
+          </tr>
+          <tr>
+            <td><h5 class="article-title">Telefon</h5></td>
+            <td><h6 class="article-title"> {{ order.telefon }}</h6></td>
+          </tr>
+          <tr>
+            <td><h5 class="article-title">Lokalizacja</h5></td>
+            <td><h6 class="article-title"> {{ order.miejsce }}</h6></td>
+          </tr>
+          <tr>
+            <td><h5 class="article-title">Data Zlecenia</h5></td>
+            <td><h6 class="article-title"> {{ order.czas_r }}</h6></td>
+          </tr>
+          <tr>
+            <td><h5 class="article-title">Samochód</h5></td>
+            <td><h6 class="article-title"> {{ order.samochod }}</h6></td>
+          </tr>
+          <tr>
+            <td><h5 class="article-title">Cena</h5></td>
+            <td><h6 class="article-title"> {{ order.cena }}</h6></td>
+          </tr>
+      </table>
     </div>
   </article>
 <!-- Modal -->

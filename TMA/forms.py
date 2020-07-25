@@ -54,6 +54,7 @@ class UpdateCar(FlaskForm):
     marka = StringField('Marka Samochodu')
     model = StringField('Model Samochodu')
     rejestracja = StringField('Numer Rejestracyjny Samochodu')
+    nazwa = StringField('Nazwa Samochodu')
     przeglad = StringField('Termin następnego przeglądu')
     add = SubmitField('Dodaj Samochód')
 
