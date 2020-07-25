@@ -80,7 +80,7 @@ def update_car(id_car):
     # elif request.method == 'GET':
     #     form.title.data = post.title
     #     form.content.data = post.content
-    return render_template('addcar.html', title='Update Car',
+    return render_template('updatecar.html', title='Update Car',
                             legend='Update Car',Car = Car, form = form)
 
 @app.route("/car/<int:id_car>/delete", methods=['GET', 'POST'])
@@ -114,7 +114,7 @@ def update_order(id_order):
     # elif request.method == 'GET':
     #     form.title.data = post.title
     #     form.content.data = post.content
-    return render_template('addorder.html', title='Update Order',
+    return render_template('updateorder.html', title='Update Order',
                             legend='Update Order',Order = Order,Cars = Cars, form = form)
 
 @app.route("/order/<int:id_order>/delete", methods=['GET', 'POST'])
