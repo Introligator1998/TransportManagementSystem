@@ -80,12 +80,11 @@
 
 
                 {% elif current_user.id_upr == 3 %}
-                    <a class="nav-item nav-link" href="{{ url_for('about') }}">Account</a>
                     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="nav-item nav-link" href="{{ url_for('show_order') }}">Zlecenia</a>
                 {% endif %}
               {% else %}
                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
               {% endif %}
             </div>
           </div>

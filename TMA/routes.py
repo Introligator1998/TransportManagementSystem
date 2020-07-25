@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSamochody
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
@@ -55,6 +55,41 @@ def add_order():
         flash('Zlecenie zostało dodane!', 'success')
         return redirect(url_for('add_order'))
     return render_template('addorder.html', title='Dodaj zlecenie', form = form, Order=Order, Cars = Cars)
+
+@app.route("/car/<int:id_car>")
+def car(id_car):
+    Car = Samochody.query.get_or_404(id_car)
+    return render_template('car.html', car = Car)
+
+@app.route("/car/<int:id_car>/update", methods=['GET', 'POST'])
+@login_required
+def update_car(id_car):
+    Car = Samochody.query.get_or_404(id_car)
+    # if post.author != current_user:
+    #     abort(403)
+    form = UpdateCar()
+    if form.validate_on_submit():
+        Car.marka = form.marka.data
+        Car.model = form.model.data
+        Car.nr_rej = form.rejestracja.data
+        Car.data_przegladu = form.przeglad.data
+        db.session.commit()
+        flash('Pomyślnie zaktualizowano samochod', 'success')
+        return redirect(url_for('car', id_car=Car.id_samochodu))
+    # elif request.method == 'GET':
+    #     form.title.data = post.title
+    #     form.content.data = post.content
+    return render_template('addcar.html', title='Update Car',
+                            legend='Update Car',Car = Car, form = form)
+
+@app.route("/car/<int:id_car>/car", methods=['GET', 'POST'])
+@login_required
+def delete_car(id_car):
+    Car = Samochody.query.get_or_404(id_car)
+    db.session.delete(Car)
+    db.session.commit()
+    flash('Zlecenie zostało usunięte', 'success')
+    return redirect(url_for('show_cars'))
 
 @app.route("/order/<int:id_order>")
 def order(id_order):

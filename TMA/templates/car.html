@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ car.marka }}</a>
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_car', id_car=car.id_samochodu) }}">Zmień</a>
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Usuń</button>
+          </div>
+
+      </div>
+      <h5 class="article-title">Marka:    {{ car.marka }}</h5>
+      <h5 class="article-title">Model:   {{ car.model }}</h5>
+      <h5 class="article-title">Nr Rejestracyjny:     {{ car.nr_rej }}</h5>
+      <h5 class="article-title">Termin następnego przeglądu:    {{ car.data_przegladu }}</h5>
+    </div>
+  </article>
+<!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Czy na pewno chcesz usunąć zlecenie?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+,          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+          <form action="{{ url_for('delete_car', id_car=car.id_samochodu) }}" method="GET">
+            <input class="btn btn-danger" type="submit" value="Usuń">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

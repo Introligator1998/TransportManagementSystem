@@ -5,20 +5,21 @@
 <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
 <script src = "../static/dtest/jquery.js"></script>
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
-
+<table class = table>
     <tr>
         <thead>
     <th>Marka</th>
     <th>Model</th>
         <th>Numer rejestracyjny</th>
+         <th>Data Przeglądu</th>
     </thead>
     </tr>
     {% for cars in Cars %}
     <tr>
-       <td> {{ cars.marka }} </td>
+        <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.marka }}</a></td>
         <td> {{ cars.model }} </td>
         <td> {{ cars.nr_rej }} </td>
-        <td>
+        <td> {{ cars.data_przegladu }}
             <button type="submit" value="submit" name="{{ cars.id_samochodu }}" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_order') }}">Wybierz</button>
         </td>
     </tr>
