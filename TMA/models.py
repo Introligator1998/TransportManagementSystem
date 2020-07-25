@@ -38,10 +38,8 @@ class Zlecenia (db.Model):
     zleceniodawca = db.Column(db.String(50),nullable = False)
     telefon = db.Column(db.String(15),nullable = False)
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
+    nazwa_samochodu = db.Column(db.String(50), db.ForeignKey('samochody.nazwa'), nullable=False)
     # db.relationship('ZleceniaSamochody', backref='zle')
-
-
-
 
 
 class Uzytkownicy(db.Model, UserMixin):
@@ -68,5 +66,6 @@ class ZleceniaSamochody (db.Model):
     id_zs = db.Column(db.Integer, primary_key = True)
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'), nullable = False)
     id_zlecenia = db.Column(db.Integer, db.ForeignKey('zlecenia.id_zlecenia'), nullable = False)
-    id_uzytkownika = db.Column(db.Integer, db.ForeignKey('uzytkownicy.id_uzytkownika'), nullable = False)
+    # TODO
+    # id_uzytkownika = db.Column(db.Integer, db.ForeignKey('uzytkownicy.id_uzytkownika'), nullable = False)
 

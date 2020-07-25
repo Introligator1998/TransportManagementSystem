@@ -16,7 +16,10 @@
         <td> {{ order.telefon }} </td>
         <td> {{ order.miejsce }} </td>
         <td> {{order.czas_r}}</td>
-        <td> {{Car.nr_rej}}</td>
+        <td> {{order.nazwa_samochodu}}</td>
+        <td>
+            <button type="submit" value="submit" name="" id="" formaction="">Aktualizuj</button>
+        </td>
     </tr>
     {% endfor %}
 </table>
