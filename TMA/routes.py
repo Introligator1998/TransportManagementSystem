@@ -76,11 +76,16 @@ def show_car_order():
     dateorder_with_time = request.form['dateorder']
     dateorder = datetime.strptime(dateorder_with_time, '%Y/%m/%d %H:%M')
 
+    # db.session.
     # Cars = Samochody.query.all()
     print(id_car)
-    Orders = Zlecenia.query.filter(id_samochodu=id_car)
+    # Orders = Zlecenia.query.all()
+    Orders = Zlecenia.query.filter_by(id_samochodu=id_car).all()
 
-    print(Orders)
+    for order in Orders:
+        print(order.id_samochodu)
+
+    # print(Orders)
     # sql = text(f"SELECT * FROM Zlecenia WHERE id_samochodu={id_car}")
     # result = db.engine.execute(sql)
     # print(result)
