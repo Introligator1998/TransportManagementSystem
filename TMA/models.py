@@ -41,9 +41,6 @@ class Zlecenia (db.Model):
     # db.relationship('ZleceniaSamochody', backref='zle')
 
 
-
-
-
 class Uzytkownicy(db.Model, UserMixin):
     __tablename__ = 'uzytkownicy'
     id_uzytkownika = db.Column(db.Integer, primary_key=True)
@@ -68,5 +65,6 @@ class ZleceniaSamochody (db.Model):
     id_zs = db.Column(db.Integer, primary_key = True)
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'), nullable = False)
     id_zlecenia = db.Column(db.Integer, db.ForeignKey('zlecenia.id_zlecenia'), nullable = False)
-    id_uzytkownika = db.Column(db.Integer, db.ForeignKey('uzytkownicy.id_uzytkownika'), nullable = False)
+    # TODO
+    # id_uzytkownika = db.Column(db.Integer, db.ForeignKey('uzytkownicy.id_uzytkownika'), nullable = False)
 
