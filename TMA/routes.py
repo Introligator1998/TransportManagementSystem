@@ -46,9 +46,11 @@ def add_order():
     Order = Zlecenia.query.all()
     Cars = Samochody.query.all()
     if form.is_submitted():
+        car_name = Samochody.query.filter_by(id_samochodu=form.id_car.data).first().nazwa
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
-                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data)
+                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,
+                         nazwa_samochodu=car_name)
         # TODO zapisywanie relacji samochod-zlecenie
         db.session.add(order)
         db.session.commit()
@@ -138,36 +140,8 @@ def show_order():
 def show_car_order():
     id_car = request.form['id_car']
     dateorder_with_time = request.form['dateorder']
-    dateorder = datetime.strptime(dateorder_with_time, '%Y/%m/%d %H:%M')
-
-    # db.session.
-    # Cars = Samochody.query.all()
-    print(id_car)
-    # Orders = Zlecenia.query.all()
+    dateorder = datetime.strptime(dateorder_with_time, '%Y/%m/%d')
     Orders = Zlecenia.query.filter_by(id_samochodu=id_car).all()
-
-    for order in Orders:
-        print(order.id_samochodu)
-
-    # print(Orders)
-    # sql = text(f"SELECT * FROM Zlecenia WHERE id_samochodu={id_car}")
-    # result = db.engine.execute(sql)
-    # print(result)
-    # print(type(result))
-    # Orders = [row[0] for row in result]
-    # print(Orders)
-    #
-    # for order in Orders:
-    #     print("order:")
-    #     print(order)
-    # car_orders = Orders.query.filter_by(id_car=id_car)
-    # Orders = Zlecenia.query.filter(Zlecenia.id_samochodu == id_car).all()
-    # print(Orders)
-    # Orders = Zlecenia.query.filter_by(id_samochodu=id_car).first()
-    # print(Orders)
-    # Orders = Zlecenia.query.filter(Zlecenia.czas_r == dateorder).filter(Zlecenia.id_samochodu == id_car)
-    # print(car_orders.czas_r)
-    # filtered_orders = car_orders.query.filter(car_orders.czas_r == dateorder)
 
     return render_template('showorder.html', Orders = Orders)
 
