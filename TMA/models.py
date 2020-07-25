@@ -22,6 +22,7 @@ class Samochody(db.Model):
     __tablename__ = 'samochody'
     id_samochodu = db.Column(db.Integer, primary_key = True)
     marka = db.Column(db.String(50), nullable = False)
+    nazwa = db.Column(db.String(50), nullable = False)
     model = db.Column(db.String(50), nullable = False)
     nr_rej = db.Column(db.String(12), nullable = False, unique = True)
     data_przegladu = db.Column(db.String(25), nullable = True)
@@ -33,7 +34,7 @@ class Zlecenia (db.Model):
     id_zlecenia = db.Column(db.Integer, primary_key = True)
     miejsce = db.Column(db.String(50), nullable = False)
     czas_r = db.Column(db.DateTime, nullable = False)
-    cena = db.Column(db.DECIMAL)
+    cena = db.Column(db.Float)
     zleceniodawca = db.Column(db.String(50),nullable = False)
     telefon = db.Column(db.String(15),nullable = False)
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)

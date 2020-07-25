@@ -6,6 +6,12 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextA
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from TMA.models import Uzytkownicy
 
+
+# class SelectCar(FlaskForm):
+#     id_car = StringField('ID samochodu', validators=[DataRequired()])
+#     dateorder = StringField('Data zlecenia', validators=[DataRequired()])
+
+
 class LoginForm(FlaskForm):
     login = StringField('Login', validators=[DataRequired()])
     email = StringField('Email', validators=[Email()])
@@ -38,6 +44,7 @@ class RegisterForm(FlaskForm):
 
 class AddCar(FlaskForm):
     marka = StringField('Marka Samochodu', validators = [DataRequired()])
+    nazwa = StringField('Nazwa Samochodu', validators=[DataRequired()])
     model = StringField('Model Samochodu', validators=[DataRequired()])
     rejestracja = StringField('Numer Rejestracyjny Samochodu', validators=[DataRequired()])
     przeglad = StringField('Termin następnego przeglądu', validators=[DataRequired()])
@@ -51,7 +58,6 @@ class AddOrder(FlaskForm):
     customer_phone = StringField('Telefon do zleceniodawcy', validators=[DataRequired()])
     date_from = StringField('Czas rozpoczęcia', validators=[DataRequired()])
     id_car = StringField('Dodaj Samochod')
-    # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
     sub = SubmitField('Dodaj Zlecenie')
 
 class UpadteOrder(FlaskForm):

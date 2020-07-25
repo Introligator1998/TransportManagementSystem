@@ -63,19 +63,48 @@ def add_order():
         return redirect(url_for('add_order'))
     return render_template('addorder.html', title='Dodaj zlecenie', form = form, Order=Order, Cars = Cars)
 
+
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
     Orders = Zlecenia.query.all()
-    CarOders = ZleceniaSamochody.query.all()
-    return render_template('showorder.html', Orders = Orders, CarOrders=CarOders)
+    return render_template('showorder.html', Orders=Orders)
+
+# TODO
+@app.route("/showcarorder", methods=['GET', 'POST'])
+def show_car_order():
+    id_car = request.form['id_car']
+    dateorder_with_time = request.form['dateorder']
+    dateorder = datetime.strptime(dateorder_with_time, '%Y/%m/%d %H:%M')
+
+    # Cars = Samochody.query.all()
+    print(id_car)
+    Orders = Zlecenia.query.filter(id_samochodu=id_car)
+
+    print(Orders)
+    # sql = text(f"SELECT * FROM Zlecenia WHERE id_samochodu={id_car}")
+    # result = db.engine.execute(sql)
+    # print(result)
+    # print(type(result))
+    # Orders = [row[0] for row in result]
+    # print(Orders)
+    #
+    # for order in Orders:
+    #     print("order:")
+    #     print(order)
+    # car_orders = Orders.query.filter_by(id_car=id_car)
+    # Orders = Zlecenia.query.filter(Zlecenia.id_samochodu == id_car).all()
+    # print(Orders)
+    # Orders = Zlecenia.query.filter_by(id_samochodu=id_car).first()
+    # print(Orders)
+    # Orders = Zlecenia.query.filter(Zlecenia.czas_r == dateorder).filter(Zlecenia.id_samochodu == id_car)
+    # print(car_orders.czas_r)
+    # filtered_orders = car_orders.query.filter(car_orders.czas_r == dateorder)
+
+    return render_template('showorder.html', Orders = Orders)
 
 @app.route("/showcars", methods=['GET', 'POST'])
 def show_cars():
     Cars = Samochody.query.all()
-    sql = text('select marka from samochody')
-    result = db.engine.execute(sql)
-    names = [row[0] for row in result]
-    print(names)
     return render_template('showcars.html', Cars = Cars)
 
 
@@ -125,7 +154,7 @@ def logout():
 def add_car():
     form = AddCar()
     if form.validate_on_submit():
-        car = Samochody(marka = form.marka.data,model = form.model.data, nr_rej=form.rejestracja.data, data_przegladu = form.przeglad.data)
+        car = Samochody(marka = form.marka.data, nazwa = form.nazwa.data, model = form.model.data, nr_rej=form.rejestracja.data, data_przegladu = form.przeglad.data)
         db.session.add(car)
         db.session.commit()
         flash('Samochód został dodany!', 'success')
