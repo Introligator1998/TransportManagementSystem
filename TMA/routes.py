@@ -8,7 +8,7 @@ from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSa
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from sqlalchemy import text
 db.create_all()
@@ -138,10 +138,13 @@ def show_order():
 # TODO
 @app.route("/showcarorder", methods=['GET', 'POST'])
 def show_car_order():
+    # TODO
     id_car = request.form['id_car']
     dateorder_with_time = request.form['dateorder']
-    dateorder = datetime.strptime(dateorder_with_time, '%Y/%m/%d')
-    Orders = Zlecenia.query.filter_by(id_samochodu=id_car).all()
+    dateorder = datetime.strptime(dateorder_with_time, '%Y-%m-%d')
+    datefinish = dateorder + timedelta(days=1)
+
+    Orders = Zlecenia.query.filter_by(id_samochodu=id_car).filter(Zlecenia.czas_r < datefinish).filter(Zlecenia.czas_r >= dateorder).all()
 
     return render_template('showorder.html', Orders = Orders)
 
