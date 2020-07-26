@@ -66,7 +66,15 @@ def car(id_car):
 
 @app.route("/showordersforcars/<int:cars_orders_page>", methods=['GET', 'POST'])
 def show_orders_for_cars(cars_orders_page):
-    return render_template('showordersforcars.html')
+    min_car_id = cars_orders_page*3-2
+    max_car_id = cars_orders_page*3
+
+    Cars = Samochody.query\
+        .filter(Samochody.id_samochodu >= min_car_id)\
+        .filter(Samochody.id_samochodu <=max_car_id)\
+        .all()
+
+    return render_template('showordersforcars.html', Cars=Cars)
 
 
 @app.route("/car/<int:id_car>/update", methods=['GET', 'POST'])
