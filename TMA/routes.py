@@ -138,7 +138,6 @@ def show_order():
 # TODO
 @app.route("/showcarorder", methods=['GET', 'POST'])
 def show_car_order():
-    # TODO
     id_car = request.form['id_car']
     dateorder_with_time = request.form['dateorder']
     dateorder = datetime.strptime(dateorder_with_time, '%Y-%m-%d')
@@ -148,18 +147,15 @@ def show_car_order():
 
     return render_template('showorder.html', Orders = Orders)
 
+
 @app.route("/showcars", methods=['GET', 'POST'])
 def show_cars():
     Cars = Samochody.query.all()
-    return render_template('showcars.html', Cars = Cars)
+    if current_user.id_upr == 3:
+        return render_template('drivercars.html', Cars=Cars)
+    else:
+        return render_template('showcars.html', Cars = Cars)
 
-
-@app.route("/showordersforcar", methods=['GET', 'POST|'])
-def show_orders_for_car():
-    pass
-    # TODO zlecenia dla samochodu
-    # Orders = Zlecenia.query.filter_by(ZleceniaSamochody)
-    # return render_template('showorder.html', Orders = Orders)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -170,9 +166,8 @@ def login():
         user = Uzytkownicy.query.filter_by(login=form.login.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            if current_user.id_upr == 1:
+            if current_user.id_upr == 3:
                 return redirect('showcars')
-            # TODO na podstawie uprawnień
             else:
                 return redirect('home')
         else:

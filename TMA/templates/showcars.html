@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <form role="form" method="post" action="/show_car_order">
         <table style="width:100%" class=" table table-striped">
-{#<link href = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">#}
 <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
 <script src = "../static/dtest/jquery.js"></script>
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
@@ -21,26 +19,7 @@
         <td> {{ cars.model }} </td>
         <td> {{ cars.nr_rej }} </td>
         <td> {{ cars.data_przegladu }}</td>
-        <td>
-            <button type="submit" value="{{ cars.id_samochodu }}" name="id_car" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_car_order') }}">Wybierz</button>
-        </td>
     </tr>
     {% endfor %}
 </table>
-<div class ="container mt-5 mb-5" style="width:400px">
-    <h3>Wybierz datę</h3>
-    <input type="text" id="dateorder" class="form-control" name="dateorder">
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap/min.js"></script>
-<script src="../static/dtest/jquery.datetimepicker.full.js"></script>
-<script>
-    $('#dateorder').datetimepicker({
-        timepicker: false,
-        datepicker: true,
-        format: 'Y-m-d'
-    })
-</script>
-</form>
 {% endblock content %}
