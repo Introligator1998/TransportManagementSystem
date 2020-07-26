@@ -40,6 +40,10 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route("/showordersforcars", methods=['GET', 'POST'])
+def show_orders_for_cars():
+    return render_template('showordersforcars.html')
+
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
     form = AddOrder()
