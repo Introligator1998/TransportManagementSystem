@@ -49,8 +49,10 @@ def add_order():
     form = AddOrder()
     Order = Zlecenia.query.all()
     Cars = Samochody.query.all()
+    print(Cars)
     if form.is_submitted():
         car_name = Samochody.query.filter_by(id_samochodu=form.id_car.data).first().nazwa
+        print(car_name)
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
                          telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
@@ -115,6 +117,10 @@ def update_order(id_order):
     if form.validate_on_submit():
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
+        Order.czar_r = form.date_from.data
+        Order.cena = form.price.data
+        Order.notatka = form.notatka.data
+        Order.telefon = form.customer_phone.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('order', id_order=Order.id_zlecenia))
