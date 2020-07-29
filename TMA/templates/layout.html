@@ -76,9 +76,29 @@
                     <a class="btn btn-danger nav-item nav-link " href="{{ url_for('logout') }}">Wyloguj</a>
                     </div>
                 {% elif current_user.id_upr == 2 %}
-                    <a class="nav-item nav-link" href="{{ url_for('add_order') }}">Dodaj zlecenie</a>
-                    <a class="nav-item nav-link" href="{{ url_for('about') }}">Account</a>
-                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <div class="btn-group col-md-3" style="width:180px; margin-right:0px;" >
+                        <button class="btn btn-danger dropdown-toggle" style="width:180px; margin-right:0px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Zlecenia
+                         </button>
+                        <div class="dropdown-menu container-fluid " aria-labelledby="dropdownMenuButton">
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('add_order') }}">Dodaj zlecenie</a>
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('show_orders_for_cars') }}">Zlecenia na samochody</a>
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('show_order') }}">Wszystkie zlecenia</a>
+                        </div>
+                    </div>
+                    <div class="btn-group col-md-3 " style="width:180px; margin-right:23px;" >
+                        <button class="btn btn-danger dropdown-toggle" style="width:180px; margin-left:0px;" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Samochody
+                         </button>
+                        <div class="dropdown-menu container-fluid bg-primary   aria-labelledby="dropdownMenuButton" >
+<!--                            <a class="nav-item nav-link bg-primary" href="{{ url_for('add_car') }}">Dodaj Nowy Samochód</a>-->
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('show_cars') }}">Lista Samochodów</a>
+                        </div>
+                    </div>
+
+                    <div class = "col-md-3" style = "width:180px">
+                    <a class="btn btn-danger nav-item nav-link " href="{{ url_for('logout') }}">Wyloguj</a>
+                    </div>
 
 
                 {% elif current_user.id_upr == 3 %}

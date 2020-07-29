@@ -76,9 +76,23 @@
                     <script>
                         $("#date_from").datetimepicker();
                     </script>
+                                <div class="form-group">
+                    {{ form.notatka.label(class="form-control-label") }}
+                    {% if form.notatka.errors %}
+                        {{ form.notatka(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.notatka.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.notatka(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
                 <div class="form-group">
                 {{ form.sub(class="btn btn-outline-info") }}
                 </div>
+
         </form>
     </div>
     <div class="border-top pt-3">

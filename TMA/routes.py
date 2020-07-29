@@ -53,7 +53,7 @@ def add_order():
         car_name = Samochody.query.filter_by(id_samochodu=form.id_car.data).first().nazwa
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
-                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,
+                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
                          nazwa_samochodu=car_name)
         # TODO zapisywanie relacji samochod-zlecenie
         db.session.add(order)
@@ -101,7 +101,8 @@ def delete_car(id_car):
 @app.route("/order/<int:id_order>")
 def order(id_order):
     Order = Zlecenia.query.get_or_404(id_order)
-    return render_template('order.html', order = Order)
+    Cars = Samochody.query.all();
+    return render_template('order.html', order = Order, cars = Cars)
 
 @app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])
 @login_required

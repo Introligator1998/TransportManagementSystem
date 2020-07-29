@@ -30,7 +30,7 @@ class RegisterForm(FlaskForm):
     permissions = RadioField('Uprawnienia', choices=[
         (1, 'Manager'), (2, 'Logistyk'), (3, 'Kierowca')],
                          default=1, coerce=int)
-    submit = SubmitField('Sign Up')
+    submit = SubmitField("Stwórz Użytkownika")
 
     def validate_username(self, username):
         user = Uzytkownicy.query.filter_by(login=username.data).first()
@@ -67,7 +67,9 @@ class AddOrder(FlaskForm):
     customer_phone = StringField('Telefon do zleceniodawcy', validators=[DataRequired()])
     date_from = StringField('Czas rozpoczęcia', validators=[DataRequired()])
     id_car = StringField('Dodaj Samochod')
+    notatka = TextAreaField('Uwagi')
     sub = SubmitField('Dodaj Zlecenie')
+
 
 class UpdateOrder(FlaskForm):
     #order_id = StringField('ID zlecenia', validators=[DataRequired()])
