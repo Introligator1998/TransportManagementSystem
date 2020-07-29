@@ -40,10 +40,6 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route("/showordersforcars", methods=['GET', 'POST'])
-def show_orders_for_cars():
-    return render_template('showordersforcars.html')
-
 @app.route("/addorder", methods=['GET', 'POST'])
 def add_order():
     form = AddOrder()
@@ -66,6 +62,20 @@ def add_order():
 def car(id_car):
     Car = Samochody.query.get_or_404(id_car)
     return render_template('car.html', car = Car)
+
+
+@app.route("/showordersforcars/<int:cars_orders_page>", methods=['GET', 'POST'])
+def show_orders_for_cars(cars_orders_page):
+    min_car_id = cars_orders_page*3-2
+    max_car_id = cars_orders_page*3
+
+    Cars = Samochody.query\
+        .filter(Samochody.id_samochodu >= min_car_id)\
+        .filter(Samochody.id_samochodu <=max_car_id)\
+        .all()
+
+    return render_template('showordersforcars.html', Cars=Cars)
+
 
 @app.route("/car/<int:id_car>/update", methods=['GET', 'POST'])
 @login_required
