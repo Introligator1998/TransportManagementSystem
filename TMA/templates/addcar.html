@@ -65,7 +65,11 @@
                      {{ form.przeglad(class="form-control form-control-lg") }}
                  </div>
                 <script>
-                     $("#przeglad").datetimepicker();
+                     $("#przeglad").datetimepicker({
+                         timepicker: false,
+                         datepicker: true,
+                         format: 'Y-m-d'
+                     });
                 </script>
                  <div class="form-group">
                 {{ form.add(class="btn btn-outline-info") }}

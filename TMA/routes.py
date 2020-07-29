@@ -8,7 +8,7 @@ from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSa
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from sqlalchemy import text
 db.create_all()
@@ -66,15 +66,28 @@ def car(id_car):
 
 @app.route("/showordersforcars/<int:cars_orders_page>", methods=['GET', 'POST'])
 def show_orders_for_cars(cars_orders_page):
+    # form =
+
     min_car_id = cars_orders_page*3-2
     max_car_id = cars_orders_page*3
+    datestart = date.today()
+    datefinish = datestart + timedelta(days=1)
+
+
 
     Cars = Samochody.query\
         .filter(Samochody.id_samochodu >= min_car_id)\
         .filter(Samochody.id_samochodu <=max_car_id)\
         .all()
 
-    return render_template('showordersforcars.html', Cars=Cars)
+    Orders = Zlecenia.query\
+        .filter(Zlecenia.id_samochodu >= min_car_id)\
+        .filter(Zlecenia.id_samochodu <= max_car_id)\
+        .filter(Zlecenia.czas_r < datefinish)\
+        .filter(Zlecenia.czas_r >= datestart)\
+        .all()
+
+    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders)
 
 
 @app.route("/car/<int:id_car>/update", methods=['GET', 'POST'])
@@ -111,7 +124,7 @@ def delete_car(id_car):
 @app.route("/order/<int:id_order>")
 def order(id_order):
     Order = Zlecenia.query.get_or_404(id_order)
-    Cars = Samochody.query.all();
+    Cars = Samochody.query.all()
     return render_template('order.html', order = Order, cars = Cars)
 
 @app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])
