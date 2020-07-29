@@ -1,40 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-    <nav aria-label="...">
-  <ul class="pagination">
+    <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+<script src = "../static/dtest/jquery.js"></script>
+<script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
     <li class="page-item disabled">
-      <span class="page-link">Previous</span>
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
     </li>
+<table class = table>
+    <tr>
+    {% for car in Cars %}
+        <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.nazwa }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
     <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item active">
-      <span class="page-link">
-        2
-        <span class="sr-only">(current)</span>
-      </span>
-    </li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
     <li class="page-item"><a class="page-link" href="#">3</a></li>
     <li class="page-item">
-      <a class="page-link" href="#">Next</a>
+      <a class="page-link" href="">Next</a>
     </li>
   </ul>
 </nav>
-{#    <div class="container">#}
-{#        <div class="col-sm-12">#}
-{#            <h1 class="text-center text-info">Stronizacja</h1>#}
-{#        </div>#}
-{#        <div class="col-sm-12">#}
-{#            <nav>#}
-{#                <ul>#}
-{#                    <li><a href="home.html">test</a></li>#}
-{#                    <li><a href="home.html">test</a></li>#}
-{#                    <li><a href="home.html">test</a></li>#}
-{#                    <li><a href="home.html">test</a></li>#}
-{#                </ul>#}
-{#            </nav>#}
-{##}
-{#        </div>#}
-{##}
-{#    </div>#}
-
-
 {% endblock content %}
