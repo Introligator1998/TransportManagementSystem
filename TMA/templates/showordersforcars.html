@@ -1,20 +1,73 @@
 {% extends "layout.html" %}
 {% block content %}
     <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+    <style>
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+    </style>
 <script src = "../static/dtest/jquery.js"></script>
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
+    <form>
+        <div class ="container mt-5 mb-5" style="width:400px">
+        <h3>Wybierz datę</h3>
+        <input type="text" id="dateorder" class="form-control" name="dateorder">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap/min.js"></script>
+<script src="../static/dtest/jquery.datetimepicker.full.js"></script>
+  <script>
+    $('#dateorder').datetimepicker({
+        timepicker: false,
+        datepicker: true,
+        format: 'Y-m-d'
+    })
+</script>
+    <button></button>
+    <table>
+        <tr>
+            {% for car in Cars %}
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="3" style="text-align: center; vertical-align: middle;">
+                                    <a href="{{ url_for('car', id_car=car.id_samochodu) }}">{{ car.nazwa }}</a>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in Orders %}
+                                {% if order.id_samochodu == car.id_samochodu %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ url_for('order', id_order=order.id_zlecenia) }}">
+                                                {{ order.czas_r.strftime('%H:%m') }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ order.miejsce }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            {% endfor %}
+        </tr>
+    </table>
+
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item disabled">
       <a class="page-link" href="#" tabindex="-1">Previous</a>
     </li>
-<table class = table>
-    <tr>
-    {% for car in Cars %}
-        <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.nazwa }}</a></td>
-    </tr>
-    {% endfor %}
-</table>
     <li class="page-item"><a class="page-link" href="#">1</a></li>
     <li class="page-item"><a class="page-link" href="#">2</a></li>
     <li class="page-item"><a class="page-link" href="#">3</a></li>
@@ -23,4 +76,7 @@
     </li>
   </ul>
 </nav>
+    </form>
+
+
 {% endblock content %}
