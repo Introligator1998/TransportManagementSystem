@@ -63,27 +63,27 @@ class UpdateCar(FlaskForm):
 
 class AddOrder(FlaskForm):
     order_id = StringField('ID zlecenia', validators=[DataRequired()])
-    customer = StringField('Zleceniodawca', validators=[DataRequired()])
-    place = StringField('Miejsce zlecenia', validators=[DataRequired()])
+    customer = StringField('Klient', validators=[DataRequired()])
+    place = StringField('Adresy', validators=[DataRequired()])
     price = StringField('Wartość zlecenia', validators=[DataRequired()])
     customer_phone = StringField('Telefon do zleceniodawcy', validators=[DataRequired()])
     date_from = StringField('Czas rozpoczęcia', validators=[DataRequired()])
     id_car = StringField('Dodaj Samochod')
-    notatka = TextAreaField('Uwagi')
+    notatka = TextAreaField('Opis')
     sub = SubmitField('Dodaj Zlecenie')
 
 
 class UpdateOrder(FlaskForm):
     #order_id = StringField('ID zlecenia', validators=[DataRequired()])
-    customer = StringField('Zleceniodawca')
+    customer = StringField('Klient')
     place = StringField('Miejsce zlecenia')
     price = StringField('Wartość zlecenia')
     customer_phone = StringField('Telefon do zleceniodawcy')
     date_from = StringField('Czas rozpoczęcia')
     cars = StringField('Dodaj Samochod')
     # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
-    sub = SubmitField('Dodaj Zlecenie')
-
+    sub = SubmitField('Aktualizuj Zlecenie')
+    notatka = TextAreaField('Opis')
 class Date(FlaskForm):
     date = StringField("Wybierz datę", validators = [DataRequired()])
     date_sub = SubmitField('Zatwierdź')

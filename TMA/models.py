@@ -32,9 +32,9 @@ class Samochody(db.Model):
 class Zlecenia (db.Model):
     __tablename__ = 'zlecenia'
     id_zlecenia = db.Column(db.Integer, primary_key = True)
-    miejsce = db.Column(db.String(50), nullable = False)
+    miejsce = db.Column(db.String(150), nullable = False)
     czas_r = db.Column(db.DateTime, nullable = False)
-    cena = db.Column(db.Float)
+    cena = db.Column(db.Float(precision = 2))
     zleceniodawca = db.Column(db.String(50),nullable = False)
     telefon = db.Column(db.String(15),nullable = False)
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
