@@ -12,6 +12,9 @@ from TMA.models import Uzytkownicy
 #     dateorder = StringField('Data zlecenia', validators=[DataRequired()])
 # class CarPageDateTime(FlaskForm):
 
+class OrdersForCars(FlaskForm):
+    dateorder = StringField('Data')
+    refresh = SubmitField('Odswiez')
 
 
 class LoginForm(FlaskForm):
