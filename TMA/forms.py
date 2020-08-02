@@ -10,6 +10,8 @@ from TMA.models import Uzytkownicy
 # class SelectCar(FlaskForm):
 #     id_car = StringField('ID samochodu', validators=[DataRequired()])
 #     dateorder = StringField('Data zlecenia', validators=[DataRequired()])
+# class CarPageDateTime(FlaskForm):
+
 
 
 class LoginForm(FlaskForm):

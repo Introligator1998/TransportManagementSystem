@@ -12,22 +12,15 @@ th, td {
     </style>
 <script src = "../static/dtest/jquery.js"></script>
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
-<!--    <form>-->
-<!--        <div class ="container mt-5 mb-5" style="width:400px">-->
-<!--        <h3>Wybierz datę</h3>-->
-<!--        <input type="text" id="dateorder" class="form-control" name="dateorder">-->
+    <form>
+        <div class ="container mt-5 mb-5" style="width:400px">
+        <h3>Wybierz datę</h3>
+        <input type="text" id="dateorder" class="form-control" name="dateorder">
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap/min.js"></script>
 <script src="../static/dtest/jquery.datetimepicker.full.js"></script>
-      <div style="margin-left:420px;">
-       <form>
-        <div class= "form-group p-3 text-primary" >
-            {{ form.dateorder.label(class="form-control form-control-lg") }}
-            {{ form.dateorder(class="form-control form-control-lg") }}
-        </div>
-
   <script>
     $('#dateorder').datetimepicker({
         timepicker: false,
@@ -35,20 +28,15 @@ th, td {
         format: 'Y-m-d'
     })
 </script>
-<div class="form-group">
-    {{ form.sub(class="btn btn-outline-info") }}
-
-</div>
-        </form>
-          </div>
-
+    <button></button>
     <table>
+        <tr>
             {% for car in Cars %}
                 <td>
                     <table>
                         <thead>
                             <tr>
-                                <td colspan="4" style="text-align: center; vertical-align: middle;">
+                                <td colspan="3" style="text-align: center; vertical-align: middle;">
                                     <a href="{{ url_for('car', id_car=car.id_samochodu) }}">{{ car.nazwa }}</a>
                                 </td>
                             </tr>
@@ -65,12 +53,6 @@ th, td {
                                         <td>
                                             {{ order.miejsce }}
                                         </td>
-                                        <td>
-                                            {{ order.telefon }}
-                                        </td>
-                                        <td>
-                                            {{ order.zleceniodawca }}
-                                        </td>
                                     </tr>
                                 {% endif %}
                             {% endfor %}
@@ -78,6 +60,7 @@ th, td {
                     </table>
                 </td>
             {% endfor %}
+        </tr>
     </table>
 
 <nav aria-label="Page navigation example">

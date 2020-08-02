@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar,OrdersForCars
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSamochody
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
@@ -45,8 +45,10 @@ def add_order():
     form = AddOrder()
     Order = Zlecenia.query.all()
     Cars = Samochody.query.all()
+    print(Cars)
     if form.is_submitted():
         car_name = Samochody.query.filter_by(id_samochodu=form.id_car.data).first().nazwa
+        print(car_name)
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
                          telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
@@ -63,39 +65,32 @@ def car(id_car):
     Car = Samochody.query.get_or_404(id_car)
     return render_template('car.html', car = Car)
 
+
 @app.route("/showordersforcars/<int:cars_orders_page>", methods=['GET', 'POST'])
 def show_orders_for_cars(cars_orders_page):
-    form = OrdersForCars()
+    # form =
+
     min_car_id = cars_orders_page*3-2
     max_car_id = cars_orders_page*3
-    #datestart = date.today()
-    if form.is_submitted():
-        dateorder = form.dateorder.data
-        print(dateorder)
-        print(type(dateorder))
-        if dateorder != None:
-            dateorder = form.dateorder.data
-        else:
-            dateorder = date.today()
-        Cars = Samochody.query\
-            .filter(Samochody.id_samochodu >= min_car_id)\
-            .filter(Samochody.id_samochodu <=max_car_id)\
-            .all()
+    datestart = date.today()
+    datefinish = datestart + timedelta(days=1)
 
 
-        dateorder = str(dateorder)
-        dateorder = datetime.strptime(dateorder, '%Y-%m-%d')
-        datefinish = dateorder + timedelta(days=1)
 
+    Cars = Samochody.query\
+        .filter(Samochody.id_samochodu >= min_car_id)\
+        .filter(Samochody.id_samochodu <=max_car_id)\
+        .all()
 
-        Orders = Zlecenia.query\
-            .filter(Zlecenia.id_samochodu >= min_car_id)\
-            .filter(Zlecenia.id_samochodu <= max_car_id)\
-            .filter(Zlecenia.czas_r < datefinish)\
-            .filter(Zlecenia.czas_r >= dateorder)\
-            .all()
+    Orders = Zlecenia.query\
+        .filter(Zlecenia.id_samochodu >= min_car_id)\
+        .filter(Zlecenia.id_samochodu <= max_car_id)\
+        .filter(Zlecenia.czas_r < datefinish)\
+        .filter(Zlecenia.czas_r >= datestart)\
+        .all()
 
-    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders, form=form)
+    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders)
+
 
 @app.route("/car/<int:id_car>/update", methods=['GET', 'POST'])
 @login_required
@@ -147,9 +142,8 @@ def update_order(id_order):
         Order.miejsce = form.place.data
         Order.czar_r = form.date_from.data
         Order.cena = form.price.data
-        Order.telefon = form.customer_phone.data
-        Order.nazwa_samochodu = form.cars.data
         Order.notatka = form.notatka.data
+        Order.telefon = form.customer_phone.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('order', id_order=Order.id_zlecenia))
@@ -230,3 +224,40 @@ def add_car():
         flash('Samochód został dodany!', 'success')
         return redirect(url_for('login'))
     return render_template('addcar.html', form = form)
+'''
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
+@app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('Your post has been updated!', 'success')
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('create_post.html', title='Update Post',
+                           form=form, legend='Update Post')
+
+
+
+'''

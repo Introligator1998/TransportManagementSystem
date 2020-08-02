@@ -50,6 +50,7 @@
                          </button>
                         <div class="dropdown-menu container-fluid " aria-labelledby="dropdownMenuButton">
                             <a class="nav-item nav-link bg-primary" href="{{ url_for('add_order') }}">Dodaj zlecenie</a>
+{#                            <a class="nav-item nav-link bg-primary" href="{{ url_for('show_orders_for_cars') }}">Zlecenia na samochody</a>#}
                             <a class="nav-item nav-link bg-primary" href="{{ url_for('show_order') }}">Wszystkie zlecenia</a>
                         </div>
                     </div>
@@ -108,9 +109,9 @@
                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
               {% endif %}
  </header>
-               <main role="main" class="container-fluid bg-light"  >
+               <main role="main" class="container bg-light" >
       <div class="row" >
-        <div class = "col-xs-6 center-block"  >
+        <div class = "col-md-12 center-block"  >
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
