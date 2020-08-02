@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar,OrdersForCars
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSamochody
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
@@ -63,32 +63,39 @@ def car(id_car):
     Car = Samochody.query.get_or_404(id_car)
     return render_template('car.html', car = Car)
 
-'''
 @app.route("/showordersforcars/<int:cars_orders_page>", methods=['GET', 'POST'])
 def show_orders_for_cars(cars_orders_page):
-    # form =
-
+    form = OrdersForCars()
     min_car_id = cars_orders_page*3-2
     max_car_id = cars_orders_page*3
-    datestart = date.today()
-    datefinish = datestart + timedelta(days=1)
+    #datestart = date.today()
+    if form.is_submitted():
+        dateorder = form.dateorder.data
+        print(dateorder)
+        print(type(dateorder))
+        if dateorder != None:
+            dateorder = form.dateorder.data
+        else:
+            dateorder = date.today()
+        Cars = Samochody.query\
+            .filter(Samochody.id_samochodu >= min_car_id)\
+            .filter(Samochody.id_samochodu <=max_car_id)\
+            .all()
 
 
+        dateorder = str(dateorder)
+        dateorder = datetime.strptime(dateorder, '%Y-%m-%d')
+        datefinish = dateorder + timedelta(days=1)
 
-    Cars = Samochody.query\
-        .filter(Samochody.id_samochodu >= min_car_id)\
-        .filter(Samochody.id_samochodu <=max_car_id)\
-        .all()
 
-    Orders = Zlecenia.query\
-        .filter(Zlecenia.id_samochodu >= min_car_id)\
-        .filter(Zlecenia.id_samochodu <= max_car_id)\
-        .filter(Zlecenia.czas_r < datefinish)\
-        .filter(Zlecenia.czas_r >= datestart)\
-        .all()
+        Orders = Zlecenia.query\
+            .filter(Zlecenia.id_samochodu >= min_car_id)\
+            .filter(Zlecenia.id_samochodu <= max_car_id)\
+            .filter(Zlecenia.czas_r < datefinish)\
+            .filter(Zlecenia.czas_r >= dateorder)\
+            .all()
 
-    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders)
-'''
+    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders, form=form)
 
 @app.route("/car/<int:id_car>/update", methods=['GET', 'POST'])
 @login_required
@@ -138,6 +145,11 @@ def update_order(id_order):
     if form.validate_on_submit():
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
+        Order.czar_r = form.date_from.data
+        Order.cena = form.price.data
+        Order.telefon = form.customer_phone.data
+        Order.nazwa_samochodu = form.cars.data
+        Order.notatka = form.notatka.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('order', id_order=Order.id_zlecenia))

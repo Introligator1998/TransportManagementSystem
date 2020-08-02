@@ -86,3 +86,6 @@ class Date(FlaskForm):
     date = StringField("Wybierz datę", validators = [DataRequired()])
     date_sub = SubmitField('Zatwierdź')
 
+class OrdersForCars(FlaskForm):
+    dateorder = StringField("Wybierz datę")
+    sub = SubmitField('Zatwierdź')
