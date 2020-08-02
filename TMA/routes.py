@@ -71,32 +71,6 @@ def car(id_car):
     return render_template('car.html', car = Car)
 
 
-@app.route("/showordersforcars", methods=['GET', 'POST'])
-def show_orders_for_cars():
-    form = OrdersForCars()
-
-    min_car_id = int(request.form['page_number'])*3-2
-    max_car_id = int(request.form['page_number'])*3
-
-    datestart = datetime.strptime(request.form['dateorder'], '%Y-%m-%d')
-
-    datefinish = datestart + timedelta(days=1)
-
-    Cars = Samochody.query\
-        .filter(Samochody.id_samochodu >= min_car_id)\
-        .filter(Samochody.id_samochodu <=max_car_id)\
-        .all()
-
-    Orders = Zlecenia.query\
-        .filter(Zlecenia.id_samochodu >= min_car_id)\
-        .filter(Zlecenia.id_samochodu <= max_car_id)\
-        .filter(Zlecenia.czas_r < datefinish)\
-        .filter(Zlecenia.czas_r >= datestart)\
-        .all()
-
-    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders, form=form)
-
-
 @app.route("/car/<int:id_car>/update", methods=['GET', 'POST'])
 @login_required
 def update_car(id_car):
@@ -129,7 +103,30 @@ def delete_car(id_car):
     flash('Zlecenie zostało usunięte', 'success')
     return redirect(url_for('show_cars'))
 
+@app.route("/showordersforcars", methods=['GET', 'POST'])
+def show_orders_for_cars():
+    form = OrdersForCars()
 
+    min_car_id = int(request.form['page_number'])*3-2
+    max_car_id = int(request.form['page_number'])*3
+
+    datestart = datetime.strptime(request.form['dateorder'], '%Y-%m-%d')
+
+    datefinish = datestart + timedelta(days=1)
+
+    Cars = Samochody.query\
+        .filter(Samochody.id_samochodu >= min_car_id)\
+        .filter(Samochody.id_samochodu <=max_car_id)\
+        .all()
+
+    Orders = Zlecenia.query\
+        .filter(Zlecenia.id_samochodu >= min_car_id)\
+        .filter(Zlecenia.id_samochodu <= max_car_id)\
+        .filter(Zlecenia.czas_r < datefinish)\
+        .filter(Zlecenia.czas_r >= datestart)\
+        .all()
+
+    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders, form=form)
 @app.route("/order/<int:id_order>")
 def order(id_order):
     Order = Zlecenia.query.get_or_404(id_order)
@@ -176,6 +173,21 @@ def show_order():
     Car = Samochody.query.all()
     return render_template('showorder.html', Orders=Orders, Car = Car)
 
+@app.route("/user/<int:id_user>")
+def user(id_user):
+    User = Uzytkownicy.query.get_or_404(id_user)
+    return render_template('user.html', user = User)
+
+@app.route("/user/<int:id_user>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_user(id_user):
+    User = Uzytkownicy.query.get_or_404(id_user)
+    db.session.delete(User)
+    db.session.commit()
+    flash('Zlecenie zostało usunięte', 'success')
+    return redirect(url_for('show_users'))
+
+
 
 @app.route("/showcarorder", methods=['GET', 'POST'])
 def show_car_order():
@@ -205,6 +217,11 @@ def show_cars():
         return render_template('drivercars.html', Cars=Cars)
     else:
         return render_template('showcars.html', Cars = Cars)
+@app.route("/showusers", methods=['GET', 'POST'])
+def show_users():
+    Users = Uzytkownicy.query.all()
+    return render_template('users.html', Users = Users)
+
 
 
 @app.route("/login", methods=['GET', 'POST'])
