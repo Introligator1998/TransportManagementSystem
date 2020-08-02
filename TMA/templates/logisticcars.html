@@ -21,8 +21,8 @@
         format: 'Y-m-d'
     })
 </script>
-<button type="submit" value="1" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">1</button>
-<button type="submit" value="2" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">2</button>
-<button type="submit" value="3" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">3</button>
+<button style = "margin-left: 250px" class = "btn btn-primary mr-2 " type="submit" value="1" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">Nazwa1/Nazwa2/Nazwa3</button>
+<button class = "btn btn-primary mr-2" type="submit" value="2" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">Nazwa4/Nazwa5/Nazwa6</button>
+<button class = "btn btn-primary mr-2"type="submit" value="3" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">Nazwa7/Nazwa8/Nazwa9</button>
 </form>
 {% endblock content %}
