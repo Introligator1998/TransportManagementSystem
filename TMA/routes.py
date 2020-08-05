@@ -205,9 +205,22 @@ def show_car_order():
     return render_template('showorder.html', Orders = Orders)
 
 
+def split_list(domain, interval):
+    return [domain[i:i + interval] for i in range(0, len(domain), interval)]
+
+
 @app.route("/showlogisticcars", methods=['GET', 'POST'])
 def show_logistic_cars():
-    return render_template('logisticcars.html')
+    Cars = Samochody.query.all()
+    car_pages_split = split_list(Cars, 3)
+    car_names = list()
+
+    for page in car_pages_split:
+        page_car_names = '/'.join([car.nazwa for car in page])
+        car_names.append(page_car_names)
+        print(car_names)
+
+    return render_template('logisticcars.html', car_names=car_names)
 
 
 @app.route("/showcars", methods=['GET', 'POST'])
