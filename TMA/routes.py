@@ -218,7 +218,6 @@ def show_logistic_cars():
     for page in car_pages_split:
         page_car_names = '/'.join([car.nazwa for car in page])
         car_names.append(page_car_names)
-        print(car_names)
 
     return render_template('logisticcars.html', car_names=car_names)
 
