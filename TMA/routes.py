@@ -58,7 +58,7 @@ def add_order():
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
                          telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
                          nazwa_samochodu=car_name)
-        # TODO zapisywanie relacji samochod-zlecenie
+        
         db.session.add(order)
         db.session.commit()
         flash('Zlecenie zostało dodane!', 'success')
