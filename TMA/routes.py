@@ -312,7 +312,7 @@ def note(id_note):
 def update_note(id_note):
     note = Zlecenia.query.get_or_404(id_note)
 
-    form = UpdateOrder()
+    form = UpdateNote()
     if form.validate_on_submit():
         note.tytul = form.tytul.data
         note.tresc = form.tresc.data
@@ -320,13 +320,12 @@ def update_note(id_note):
         flash('Notatka została zaktualizowana!', 'success')
         return redirect(url_for('note', id_note=note.id_zlecenia))
 
-    return render_template('updatenote.html', title='Update Note',
-                            legend='Update Order',Order = Order,Cars = Cars, form = form)
+    return render_template('updatenote.html', title='Update Note', legend='Update Note',note=note, form = form)
 # TODO
 
 @app.route("/note/<int:id_note>/delete", methods=['GET', 'POST'])
 @login_required
-def delete_order(id_order):
+def delete_order(id_note):
     note = Notatki.query.get_or_404(id_note)
     db.session.delete(note)
     db.session.commit()
