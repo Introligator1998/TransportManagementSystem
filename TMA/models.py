@@ -26,7 +26,6 @@ class Samochody(db.Model):
     model = db.Column(db.String(50), nullable = False)
     nr_rej = db.Column(db.String(12), nullable = False)
     data_przegladu = db.Column(db.String(25), nullable = True)
-    # db.relationship('ZleceniaSamochody', backref = 'zs')
 
 
 class Zlecenia (db.Model):
@@ -40,7 +39,6 @@ class Zlecenia (db.Model):
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
     nazwa_samochodu = db.Column(db.String(50), db.ForeignKey('samochody.nazwa'), nullable=False)
     notatka = db.Column(db.String(500))
-    # db.relationship('ZleceniaSamochody', backref='zle')
 
 
 class Uzytkownicy(db.Model, UserMixin):
@@ -52,7 +50,6 @@ class Uzytkownicy(db.Model, UserMixin):
     password = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=True)
     id_upr = db.Column(db.Integer, db.ForeignKey('uprawnienia.id_uprawnien'),nullable=False)
-    # db.relationship('ZleceniaSamochody', backref='zled')
 
     def get_id(self):
         return (self.id_uzytkownika)
