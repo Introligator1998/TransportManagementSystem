@@ -150,7 +150,7 @@ def update_order(id_order):
         Order.notatka = form.notatka.data
         Order.telefon = form.customer_phone.data
         db.session.commit()
-        flash('Your post has been updated!', 'success')
+        flash('Zlecenie zostało zaktualizowane!', 'success')
         return redirect(url_for('order', id_order=Order.id_zlecenia))
 
     return render_template('updateorder.html', title='Update Order',
