@@ -107,6 +107,7 @@ def delete_car(id_car):
     flash('Zlecenie zostało usunięte', 'success')
     return redirect(url_for('show_cars'))
 
+
 @app.route("/showordersforcars", methods=['GET', 'POST'])
 def show_orders_for_cars():
     form = OrdersForCars()
