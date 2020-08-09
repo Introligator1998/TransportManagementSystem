@@ -6,9 +6,10 @@
 <script src = "../static/dtest/jquery.js"></script>
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
 
-<div class ="container mt-5 mb-5" style="width:400px">
-    <h3>Wybierz datę</h3>
+<div class ="container mt-5 mb-5" style="width:500px">
+    <h5 class = "article-title" style = "margin-left: 160px ;margin-bottom: 30px">Wybierz datę</h5>
     <input type="text" id="dateorder" class="form-control" name="dateorder" required>
+    <h5 class = "article-title" style = "margin-left:25px; margin-top: 50px">Wybierz samochody do wyświetlenia zleceń</h5>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -20,9 +21,14 @@
         datepicker: true,
         format: 'Y-m-d'
     })
+
 </script>
+            <div style="margin-left: 250px">
 {% for names in car_names %}
-    <button style = "margin-left: 250px" class = "btn btn-primary mr-2 " type="submit" value="{{ loop.index }}" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">{{ names }}</button>
+
+    <button style = "margin-left: 50px" class = "btn btn-primary mr-2 " type="submit" value="{{ loop.index }}" name="page_number" id="page_number" formaction="{{ url_for('show_orders_for_cars') }}">{{ names }}</button>
+
 {% endfor %}
+            </div>
 </form>
 {% endblock content %}
