@@ -9,7 +9,7 @@
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
 <div class = "ml-5">
     <h3>Wybierz datę</h3>
-    <input type="text" id="dateorder" class="form-control rounded-left ml-2" name="dateorder" style = "width:300px;">
+    <input type="text" id="dateorder" class="form-control rounded-left ml-2" name="dateorder" style = "width:300px;" required>
 </div>
 <table class = "table table-striped" style="width:40%">
     <tr>
@@ -27,7 +27,7 @@
         <td> {{ cars.nr_rej }} </td>
         <td> {{ cars.data_przegladu }}</td>
         <td>
-            <button class="btn btn-primary type="submit" value="{{ cars.id_samochodu }}" name="id_car" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_car_order') }}">Wybierz</button>
+            <button class="btn btn-primary" type="submit" value="{{ cars.id_samochodu }}" name="id_car" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_car_order') }}">Wybierz</button>
         </td>
     </tr>
     {% endfor %}
