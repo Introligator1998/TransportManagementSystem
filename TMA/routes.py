@@ -10,7 +10,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
 from datetime import datetime, timedelta, date
 
-from sqlalchemy import text, desc
+from sqlalchemy import text, asc
 db.create_all()
 
 
@@ -128,7 +128,7 @@ def show_orders_for_cars():
         .filter(Zlecenia.id_samochodu <= max_car_id)\
         .filter(Zlecenia.czas_r < datefinish)\
         .filter(Zlecenia.czas_r >= datestart)\
-        .order_by(desc(Zlecenia.czas_r))\
+        .order_by(asc(Zlecenia.czas_r))\
         .all()
 
     return render_template('showordersforcars.html', Cars=Cars, Orders=Orders, form=form)
