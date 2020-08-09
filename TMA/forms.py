@@ -48,11 +48,11 @@ class RegisterForm(FlaskForm):
             raise ValidationError('That email is taken. Please choose a different one.')
 
 class AddCar(FlaskForm):
-    marka = StringField('Marka Samochodu', validators = [DataRequired()])
-    nazwa = StringField('Nazwa Samochodu', validators=[DataRequired()])
-    model = StringField('Model Samochodu', validators=[DataRequired()])
-    rejestracja = StringField('Numer Rejestracyjny Samochodu', validators=[DataRequired()])
-    przeglad = StringField('Termin następnego przeglądu', validators=[DataRequired()])
+    marka = StringField('Marka Samochodu')
+    nazwa = StringField('Nazwa Samochodu')
+    model = StringField('Model Samochodu')
+    rejestracja = StringField('Numer Rejestracyjny Samochodu')
+    przeglad = StringField('Termin następnego przeglądu')
     add = SubmitField('Dodaj Samochód')
 
 class UpdateCar(FlaskForm):
@@ -66,12 +66,12 @@ class UpdateCar(FlaskForm):
 
 class AddOrder(FlaskForm):
     order_id = StringField('ID zlecenia', validators=[DataRequired()])
-    customer = StringField('Klient', validators=[DataRequired()])
-    place = StringField('Adresy', validators=[DataRequired()])
-    price = StringField('Wartość zlecenia', validators=[DataRequired()])
-    customer_phone = StringField('Telefon do zleceniodawcy', validators=[DataRequired()])
-    date_from = StringField('Czas rozpoczęcia', validators=[DataRequired()])
-    id_car = StringField('Dodaj Samochod')
+    customer = StringField('Klient')
+    place = StringField('Adresy')
+    price = StringField('Wartość zlecenia')
+    customer_phone = StringField('Telefon do zleceniodawcy')
+    date_from = StringField('Czas rozpoczęcia', validators = [DataRequired()])
+    id_car = StringField('Dodaj Samochod', validators = [DataRequired()])
     notatka = TextAreaField('Opis')
     sub = SubmitField('Dodaj Zlecenie')
 
@@ -92,5 +92,5 @@ class Date(FlaskForm):
     date_sub = SubmitField('Zatwierdź')
 
 class OrdersForCars(FlaskForm):
-    dateorder = StringField("Wybierz datę")
+    dateorder = StringField("Wybierz datę", validators = [DataRequired()])
     sub = SubmitField('Zatwierdź')

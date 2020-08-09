@@ -12,6 +12,8 @@ th, td {
     </style>
 <script src = "../static/dtest/jquery.js"></script>
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
+    <p class="text-center">Wybrana data</p>
+    <p class="text-center">{{ datestart.strftime('%Y-%m-%d') }}</p>
     <table class = "table table-striped">
         <tr>
             {% for car in Cars %}

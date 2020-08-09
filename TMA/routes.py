@@ -132,7 +132,7 @@ def show_orders_for_cars():
         .order_by(asc(Zlecenia.czas_r))\
         .all()
 
-    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders, form=form)
+    return render_template('showordersforcars.html', Cars=Cars, Orders=Orders, form=form, datestart=datestart)
 
 
 @app.route("/order/<int:id_order>")
