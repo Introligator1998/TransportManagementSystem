@@ -226,7 +226,7 @@ def show_logistic_cars():
 def show_cars():
     Cars = Samochody.query.all()
     if current_user.id_upr == 3:
-        return render_template('drivercars.html', Cars=Cars)
+        return render_template('f.html', Cars=Cars)
     else:
         return render_template('showcars.html', Cars = Cars)
 @app.route("/showusers", methods=['GET', 'POST'])
