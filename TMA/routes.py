@@ -3,8 +3,8 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar, OrdersForCars
-from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, ZleceniaSamochody
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar, OrdersForCars, AddNote
+from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, Notatki
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
@@ -280,3 +280,55 @@ def add_car():
         flash('Samochód został dodany!', 'success')
         return redirect(url_for('login'))
     return render_template('addcar.html', form = form)
+
+
+@app.route("/addnote", methods=['GET', 'POST'])
+def add_note():
+    form = AddNote()
+    if form.validate_on_submit():
+        note = Notatki(tytul=form.tytul.data, tresc=form.tresc.data)
+        db.session.add(note)
+        db.session.commit()
+        flash('Dodano notatkę!', 'success')
+        return redirect(url_for('login'))
+    return render_template('addnote.html', form=form)
+
+
+@app.route("/shownotes", methods=['GET', 'POST'])
+def show_notes():
+    notes = Notatki.query.all()
+    return render_template('shownotes.html', notes=notes)
+
+
+@app.route("/note/<int:id_note>")
+def note(id_note):
+    note = Notatki.query.get_or_404(id_note)
+
+    return render_template('note.html', note=note)
+
+
+@app.route("/note/<int:id_note>/update", methods=['GET', 'POST'])
+@login_required
+def update_note(id_note):
+    note = Zlecenia.query.get_or_404(id_note)
+
+    form = UpdateOrder()
+    if form.validate_on_submit():
+        note.tytul = form.tytul.data
+        note.tresc = form.tresc.data
+        db.session.commit()
+        flash('Notatka została zaktualizowana!', 'success')
+        return redirect(url_for('note', id_note=note.id_zlecenia))
+
+    return render_template('updatenote.html', title='Update Note',
+                            legend='Update Order',Order = Order,Cars = Cars, form = form)
+# TODO
+
+@app.route("/note/<int:id_note>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_order(id_order):
+    note = Notatki.query.get_or_404(id_note)
+    db.session.delete(note)
+    db.session.commit()
+    flash('Notatka została usunięta', 'success')
+    return redirect(url_for('show_notes'))

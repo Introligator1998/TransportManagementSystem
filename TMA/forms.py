@@ -47,6 +47,13 @@ class RegisterForm(FlaskForm):
         if user:
             raise ValidationError('That email is taken. Please choose a different one.')
 
+
+class AddNote(FlaskForm):
+    tytul = StringField('Tytul notatki')
+    tresc = StringField('Tresc notatki')
+    add = SubmitField('Dodaj notatke')
+
+
 class AddCar(FlaskForm):
     marka = StringField('Marka Samochodu')
     nazwa = StringField('Nazwa Samochodu')
