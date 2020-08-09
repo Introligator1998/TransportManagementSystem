@@ -79,11 +79,15 @@ def update_car(id_car):
     #     abort(403)
     form = UpdateCar()
     if form.validate_on_submit():
+        date_check = datetime.strptime(form.przeglad.data, '%Y-%m-%d')
+
         Car.marka = form.marka.data
         Car.model = form.model.data
         Car.nr_rej = form.rejestracja.data
         Car.data_przegladu = form.przeglad.data
         Car.nazwa = form.nazwa.data
+        Car.data_przegladu = date_check
+
         db.session.commit()
         flash('Pomyślnie zaktualizowano samochod', 'success')
         return redirect(url_for('car', id_car=Car.id_samochodu))
@@ -143,9 +147,11 @@ def update_order(id_order):
     #     abort(403)
     form = UpdateOrder()
     if form.validate_on_submit():
+        czas_r = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
+
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
-        Order.czar_r = form.date_from.data
+        Order.czas_r = czas_r
         Order.cena = form.price.data
         Order.notatka = form.notatka.data
         Order.telefon = form.customer_phone.data
