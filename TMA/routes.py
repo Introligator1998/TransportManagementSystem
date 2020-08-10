@@ -173,7 +173,7 @@ def update_order(id_order):
 
 
     return render_template('updateorder.html', title='Update Order',
-                            legend='Update Order',Order = Order,Cars = Cars, form = form, date_from = czas_r)
+                            legend='Update Order',Order = Order,Cars = Cars, form = form, czas_r = czas_r)
 
 
 @app.route("/order/<int:id_order>/delete", methods=['GET', 'POST'])

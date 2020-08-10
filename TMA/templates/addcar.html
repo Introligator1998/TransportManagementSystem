@@ -9,19 +9,6 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Dodaj Nowy Samochód</legend>
                 <div class="form-group">
-                    {{ form.marka.label(class="form-control-label") }}
-                    {% if form.marka.errors %}
-                        {{ form.marka(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.marka.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.marka(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
                     {{ form.nazwa.label(class="form-control-label") }}
                     {% if form.nazwa.errors %}
                         {{ form.nazwa(class="form-control form-control-lg is-invalid") }}
@@ -31,9 +18,23 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.nazwa(class="form-control form-control-lg") }}
+                        {{ form.nazwa(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
+                <div class="form-group">
+                    {{ form.marka.label(class="form-control-label") }}
+                    {% if form.marka.errors %}
+                        {{ form.marka(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.marka.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.marka(class="form-control form-control-lg", autocomplete="off") }}
+                    {% endif %}
+                </div>
+
                 <div class="form-group">
                     {{ form.model.label(class="form-control-label") }}
                     {% if form.model.errors %}
@@ -44,7 +45,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.model(class="form-control form-control-lg") }}
+                        {{ form.model(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -57,12 +58,12 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.rejestracja(class="form-control form-control-lg") }}
+                        {{ form.rejestracja(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
                  <div class= "form-group">
                      {{ form.przeglad.label(class="form-control-label") }}
-                     {{ form.przeglad(class="form-control form-control-lg") }}
+                     {{ form.przeglad(class="form-control form-control-lg", autocomplete="off") }}
                  </div>
                 <script>
                      $("#przeglad").datetimepicker({

@@ -20,9 +20,9 @@ class OrdersForCars(FlaskForm):
 class LoginForm(FlaskForm):
     login = StringField('Login', validators=[DataRequired()])
     email = StringField('Email', validators=[Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Hasło', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')
+    submit = SubmitField('Zaloguj')
 
 
 class RegisterForm(FlaskForm):
