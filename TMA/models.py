@@ -34,7 +34,7 @@ class Zlecenia (db.Model):
     miejsce = db.Column(db.String(150))
     czas_r = db.Column(db.DateTime, nullable = False)
     cena = db.Column(db.String(30))
-    zleceniodawca = db.Column(db.String(50))
+    zleceniodawca = db.Column(db.String(50), nullable=False)
     telefon = db.Column(db.String(15))
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
     nazwa_samochodu = db.Column(db.String(50), db.ForeignKey('samochody.nazwa'), nullable=False)

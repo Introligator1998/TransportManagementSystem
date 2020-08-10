@@ -79,7 +79,7 @@ class UpdateCar(FlaskForm):
 
 class AddOrder(FlaskForm):
     order_id = StringField('ID zlecenia', validators=[DataRequired()])
-    customer = StringField('Klient')
+    customer = StringField('Klient', validators= [DataRequired()])
     place = StringField('Adresy')
     price = StringField('Wartość zlecenia')
     customer_phone = StringField('Telefon do zleceniodawcy')
