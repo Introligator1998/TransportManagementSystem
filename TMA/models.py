@@ -33,7 +33,7 @@ class Zlecenia (db.Model):
     id_zlecenia = db.Column(db.Integer, primary_key = True)
     miejsce = db.Column(db.String(150))
     czas_r = db.Column(db.DateTime, nullable = False)
-    cena = db.Column(db.Float(precision = 2))
+    cena = db.Column(db.String(30))
     zleceniodawca = db.Column(db.String(50))
     telefon = db.Column(db.String(15))
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
@@ -41,7 +41,6 @@ class Zlecenia (db.Model):
     notatka = db.Column(db.String(500))
 
 
-# TODO dodaj/wyswietl
 class Notatki(db.Model):
     __tablename__ = "notatki"
     id_notatki = db.Column(db.Integer, primary_key=True)
