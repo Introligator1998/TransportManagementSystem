@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar, OrdersForCars, AddNote
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar, OrdersForCars, AddNote, UpdateNote
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, Notatki
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
@@ -75,8 +75,8 @@ def car(id_car):
 @login_required
 def update_car(id_car):
     Car = Samochody.query.get_or_404(id_car)
-    # if post.author != current_user:
-    #     abort(403)
+    datecheck = datetime.now()
+
     form = UpdateCar()
     if form.validate_on_submit():
         date_check = datetime.strptime(form.przeglad.data, '%Y-%m-%d')
@@ -91,11 +91,19 @@ def update_car(id_car):
         db.session.commit()
         flash('Pomyślnie zaktualizowano samochod', 'success')
         return redirect(url_for('car', id_car=Car.id_samochodu))
+    elif request.method == 'GET':
+        form.marka.data = Car.marka
+        form.model.data = Car.model
+        form.rejestracja.data = Car.nr_rej
+        form.przeglad.data = Car.data_przegladu
+        form.nazwa.data =  Car.nazwa
+        datecheck = Car.data_przegladu
+
     # elif request.method == 'GET':
     #     form.title.data = post.title
     #     form.content.data = post.content
     return render_template('updatecar.html', title='Update Car',
-                            legend='Update Car',Car = Car, form = form)
+                            legend='Update Car',Car = Car, form = form, datecheck=datecheck)
 
 
 @app.route("/car/<int:id_car>/delete", methods=['GET', 'POST'])
@@ -319,15 +327,18 @@ def note(id_note):
 @app.route("/note/<int:id_note>/update", methods=['GET', 'POST'])
 @login_required
 def update_note(id_note):
-    note = Zlecenia.query.get_or_404(id_note)
+    note = Notatki.query.get_or_404(id_note)
+    form = UpdateNote()
 
-    form = AddNote()
     if form.validate_on_submit():
         note.tytul = form.tytul.data
         note.tresc = form.tresc.data
         db.session.commit()
         flash('Notatka została zaktualizowana!', 'success')
-        return redirect(url_for('note', id_note=note.id_zlecenia))
+        return redirect(url_for('note', id_note=note.id_notatki))
+    elif request.method == 'GET':
+        form.tytul.data = note.tytul
+        form.tresc.data = note.tresc
 
     return render_template('updatenote.html', title='Update Note', legend='Update Note',note=note, form = form)
 

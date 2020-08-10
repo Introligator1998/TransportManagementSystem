@@ -134,7 +134,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Dodaj notatkę</legend>
+                <legend class="border-bottom mb-4">Zmień notatkę</legend>
                 <div class="form-group">
                     {{ form.tytul.label(class="form-control-label") }}
                     {% if form.tytul.errors %}
@@ -166,11 +166,6 @@
                 </div>
             </fieldset>
         </form>
-    </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
-        </small>
     </div>
 </body>
 {% endblock content %}

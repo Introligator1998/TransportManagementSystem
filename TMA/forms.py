@@ -54,6 +54,12 @@ class AddNote(FlaskForm):
     add = SubmitField('Dodaj notatke')
 
 
+class UpdateNote(FlaskForm):
+    tytul = StringField('Tytul notatki')
+    tresc = StringField('Tresc notatki')
+    add = SubmitField('Zmień notatke')
+
+
 class AddCar(FlaskForm):
     marka = StringField('Marka Samochodu')
     nazwa = StringField('Nazwa Samochodu')
