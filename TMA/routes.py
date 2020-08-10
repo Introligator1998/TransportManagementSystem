@@ -146,9 +146,9 @@ def update_order(id_order):
     # if post.author != current_user:
     #     abort(403)
     form = UpdateOrder()
+
     if form.validate_on_submit():
         czas_r = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
-
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
         Order.czas_r = czas_r
@@ -158,9 +158,18 @@ def update_order(id_order):
         db.session.commit()
         flash('Zlecenie zostało zaktualizowane!', 'success')
         return redirect(url_for('order', id_order=Order.id_zlecenia))
+    elif request.method == 'GET':
+
+        form.customer.data = Order.zleceniodawca
+        form.place.data = Order.miejsce
+        czas_r = Order.czas_r
+        form.price.data = Order.cena
+        form.notatka.data = Order.notatka
+        form.customer_phone.data = Order.telefon
+        #form.content.data = Order.content
 
     return render_template('updateorder.html', title='Update Order',
-                            legend='Update Order',Order = Order,Cars = Cars, form = form)
+                            legend='Update Order',Order = Order,Cars = Cars, form = form, czas_r = czas_r)
 
 
 @app.route("/order/<int:id_order>/delete", methods=['GET', 'POST'])
