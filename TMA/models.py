@@ -21,24 +21,32 @@ class Uprawnienia(db.Model):
 class Samochody(db.Model):
     __tablename__ = 'samochody'
     id_samochodu = db.Column(db.Integer, primary_key = True)
-    marka = db.Column(db.String(50), nullable = False)
-    nazwa = db.Column(db.String(50), nullable = False)
-    model = db.Column(db.String(50), nullable = False)
-    nr_rej = db.Column(db.String(12), nullable = False)
-    data_przegladu = db.Column(db.String(25), nullable = True)
+    marka = db.Column(db.String(50))
+    nazwa = db.Column(db.String(50))
+    model = db.Column(db.String(50))
+    nr_rej = db.Column(db.String(12))
+    data_przegladu = db.Column(db.String(25))
 
 
 class Zlecenia (db.Model):
     __tablename__ = 'zlecenia'
     id_zlecenia = db.Column(db.Integer, primary_key = True)
-    miejsce = db.Column(db.String(150), nullable = False)
+    miejsce = db.Column(db.String(150))
     czas_r = db.Column(db.DateTime, nullable = False)
     cena = db.Column(db.Float(precision = 2))
-    zleceniodawca = db.Column(db.String(50),nullable = False)
-    telefon = db.Column(db.String(15),nullable = False)
+    zleceniodawca = db.Column(db.String(50))
+    telefon = db.Column(db.String(15))
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
     nazwa_samochodu = db.Column(db.String(50), db.ForeignKey('samochody.nazwa'), nullable=False)
     notatka = db.Column(db.String(500))
+
+
+# TODO dodaj/wyswietl
+class Notatki(db.Model):
+    __tablename__ = "notatki"
+    id_notatki = db.Column(db.Integer, primary_key=True)
+    tytul = db.Column(db.String(30))
+    tresc = db.Column(db.String(500))
 
 
 class Uzytkownicy(db.Model, UserMixin):
@@ -57,13 +65,4 @@ class Uzytkownicy(db.Model, UserMixin):
 
     def __repr__(self):
         return f"Uzytkownicy('{self.id_uzytkownika}', '{self.imie}','{self.nazwisko}','{self.login}','{self.haslo}')"
-
-
-class ZleceniaSamochody (db.Model):
-    __tablename__ = 'zleceniasamochody'
-    id_zs = db.Column(db.Integer, primary_key = True)
-    id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'), nullable = False)
-    id_zlecenia = db.Column(db.Integer, db.ForeignKey('zlecenia.id_zlecenia'), nullable = False)
-    # TODO
-    # id_uzytkownika = db.Column(db.Integer, db.ForeignKey('uzytkownicy.id_uzytkownika'), nullable = False)
 
