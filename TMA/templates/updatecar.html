@@ -148,15 +148,26 @@
         </div>
       </nav>
 
-
+<link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
+<script src = "../static/dtest/jquery.js"></script>
+<script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
 <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Edytuj dane samochodu</legend>
+                <legend class="border-bottom mb-4">Zmień dane samochodu</legend>
                 <div class="form-group">
                     {{ form.nazwa.label(class="form-control-label") }}
-                    {{ form.nazwa(class="form-control form-control-lg", autocomplete="off") }}
+                    {% if form.nazwa.errors %}
+                        {{ form.nazwa(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.nazwa.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.nazwa(class="form-control form-control-lg", autocomplete="off") }}
+                    {% endif %}
                 </div>
                 <div class="form-group">
                     {{ form.marka.label(class="form-control-label") }}
@@ -171,17 +182,18 @@
                         {{ form.marka(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
+
                 <div class="form-group">
-                    {{ form.model.label(class="form-control-label") }}
-                    {% if form.model.errors %}
-                        {{ form.model(class="form-control form-control-lg is-invalid") }}
+                    {{ form.wymiary.label(class="form-control-label") }}
+                    {% if form.wymiary.errors %}
+                        {{ form.wymiary(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.model.errors %}
+                            {% for error in form.wymiary.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.model(class="form-control form-control-lg", autocomplete="off") }}
+                        {{ form.wymiary(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -197,17 +209,48 @@
                         {{ form.rejestracja(class="form-control form-control-lg", autocomplete="off") }}
                     {% endif %}
                 </div>
+                <div class="form-group">
+                    {{ form.rok.label(class="form-control-label") }}
+                    {{ form.rok(class="form-control form-control-lg", autocomplete="off") }}
+
+                </div>
                  <div class= "form-group">
                      {{ form.przeglad.label(class="form-control-label") }}
-                     <input type="text" id="przeglad" class="form-control" name="przeglad" value="{{ datecheck }}">
+                     {{ form.przeglad(class="form-control form-control-lg", autocomplete="off") }}
                  </div>
                 <script>
-                   $("#przeglad").datetimepicker({
+                     $("#przeglad").datetimepicker({
                          timepicker: false,
                          datepicker: true,
                          format: 'Y-m-d'
                      });
                 </script>
+                <div class="form-group">
+                    {{ form.leasing.label(class="form-control-label") }}
+                    {{ form.leasing(class="form-control form-control-lg", autocomplete="off") }}
+
+                </div>
+                <div class="form-group">
+                    {{ form.polisa_nr.label(class="form-control-label") }}
+                    {{ form.polisa_nr(class="form-control form-control-lg", autocomplete="off") }}
+
+                </div>
+                                 <div class= "form-group">
+                     {{ form.polisa_data.label(class="form-control-label") }}
+                     {{ form.polisa_data(class="form-control form-control-lg", autocomplete="off") }}
+                 </div>
+                <script>
+                     $("#polisa_data").datetimepicker({
+                         timepicker: false,
+                         datepicker: true,
+                         format: 'Y-m-d'
+                     });
+                </script>
+                <div class="form-group">
+                    {{ form.pin.label(class="form-control-label") }}
+                    {{ form.pin(class="form-control form-control-lg", autocomplete="off") }}
+
+                </div>
                  <div class="form-group">
                 {{ form.add(class="btn btn-outline-info") }}
                 </div>

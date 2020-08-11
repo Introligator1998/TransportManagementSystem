@@ -37,10 +37,10 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Uzytkownicy(name = form.name.data,surname = form.surname.data, login=form.login.data, email=form.email.data, password=hashed_password,id_upr=form.permissions.data)
+        user = Uzytkownicy(name = form.name.data,surname = form.surname.data, login=form.login.data, password=hashed_password,id_upr=form.permissions.data)
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
+        flash('Twoje konto zostało stworzeone, teraz możesz się zalogować.', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
@@ -56,7 +56,7 @@ def add_order():
 
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
-                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
+                         telefon=form.customer_phone.data, czas_r=form.date_from.data, id_samochodu=form.id_car.data,notatka = form.notatka.data,
                          nazwa_samochodu=car_name)
         
         db.session.add(order)
@@ -80,25 +80,39 @@ def update_car(id_car):
 
     form = UpdateCar()
     if form.validate_on_submit():
-        date_check = datetime.strptime(form.przeglad.data, '%Y-%m-%d')
+        #date_check = datetime.strptimetime(form.przeglad.data, '%Y-%m-%d')
+        #date_check1 = datetime.strptime(form.polisa_data.data, '%Y-%m-%d')
 
         Car.marka = form.marka.data
-        Car.model = form.model.data
+        Car.wymiary = form.wymiary.data
         Car.nr_rej = form.rejestracja.data
-        Car.data_przegladu = form.przeglad.data
+        Car.polisa_data = form.polisa_data.data
+        Car.polisa_nr = form.polisa_nr.data
+        Car.leasing = form.leasing.data
         Car.nazwa = form.nazwa.data
-        Car.data_przegladu = date_check
+        Car.data_przegladu = form.przeglad.data
+        Car.pin = form.pin.data
+        Car.rok = form.rok.data
 
         db.session.commit()
         flash('Pomyślnie zaktualizowano samochod', 'success')
         return redirect(url_for('car', id_car=Car.id_samochodu))
     elif request.method == 'GET':
+        #date_check = datetime.strftime(Car.data_przegladu, '%Y-%m-%d')
+        #date_check1 = datetime.strftime(Car.polisa_data, '%Y-%m-%d')
+
         form.marka.data = Car.marka
-        form.model.data = Car.model
+        form.wymiary.data = Car.wymiary
         form.rejestracja.data = Car.nr_rej
+        #form.przeglad.data = date_check
+        #form.polisa_nr.data = date_check1
+        form.polisa_data.data = Car.polisa_data
         form.przeglad.data = Car.data_przegladu
-        form.nazwa.data =  Car.nazwa
-        datecheck = Car.data_przegladu
+        form.leasing.data = Car.leasing
+        form.polisa_nr.data = Car.polisa_nr
+        form.rok.data = Car.rok
+        form.nazwa.data = Car.nazwa
+        form.pin.data = Car.pin
 
     # elif request.method == 'GET':
     #     form.title.data = post.title
@@ -165,7 +179,7 @@ def update_order(id_order):
         czas_r = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
-        Order.czas_r = czas_r
+        Order.czas_r = form.date_from.data
         Order.cena = form.price.data
         Order.notatka = form.notatka.data
         Order.telefon = form.customer_phone.data
@@ -295,7 +309,7 @@ def logout():
 def add_car():
     form = AddCar()
     if form.validate_on_submit():
-        car = Samochody(marka = form.marka.data, nazwa = form.nazwa.data, model = form.model.data, nr_rej=form.rejestracja.data, data_przegladu = form.przeglad.data)
+        car = Samochody(marka = form.marka.data, nazwa = form.nazwa.data, nr_rej=form.rejestracja.data,rok = form.rok.data,leasing = form.leasing.data,wymiary= form.wymiary.data, polisa_nr = form.polisa_nr.data, polisa_data = form.polisa_data.data, pin = form.pin.data, data_przegladu = form.przeglad.data)
         db.session.add(car)
         db.session.commit()
         flash('Samochód został dodany!', 'success')

@@ -3,7 +3,7 @@
 <article class="media content-section" xmlns="http://www.w3.org/1999/html">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ car.marka }}</a>
+       <h4><a class="mr-2" href="#">{{ car.nazwa }}</a></h4>
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_car', id_car=car.id_samochodu) }}">Zmień</a>
             <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Usuń</button>
@@ -17,8 +17,8 @@
             <td><h6 class="article-title"> {{ car.marka }}</h6></td>
           </tr>
           <tr>
-            <td><h6 class="article-title">Model</h6></td>
-            <td><h6 class="article-title"> {{ car.model }}</h6></td>
+            <td><h6 class="article-title">Typ i wymiary</h6></td>
+            <td><h6 class="article-title"> {{ car.wymiary }}</h6></td>
           </tr>
           <tr>
             <td><h6 class="article-title">Nr rejestracyjny</h6></td>
@@ -28,6 +28,27 @@
             <td><h6 class="article-title">Data przeglądu </h6></td>
             <td><h6 class="article-title"> {{ car.data_przegladu }}</h6></td>
           </tr>
+          <tr>
+            <td><h6 class="article-title">Rok produkcji</h6></td>
+            <td><h6 class="article-title"> {{ car.rok }}</h6></td>
+          </tr>
+          <tr>
+            <td><h6 class="article-title">Numer polisy</h6></td>
+            <td><h6 class="article-title"> {{ car.polisa_nr }}</h6></td>
+          </tr>
+          <tr>
+            <td><h6 class="article-title">Data ważności polisy</h6></td>
+            <td><h6 class="article-title"> {{ car.polisa_data }}</h6></td>
+          </tr>
+          <tr>
+            <td><h6 class="article-title">Leasing</h6></td>
+            <td><h6 class="article-title"> {{ car.leasing }}</h6></td>
+          </tr>
+          <tr>
+            <td><h6 class="article-title">Pin karty</h6></td>
+            <td><h6 class="article-title"> {{ car.pin }}</h6></td>
+          </tr>
+
     </table>
     </div>
   </article>
