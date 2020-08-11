@@ -65,6 +65,7 @@ def add_order():
         return redirect(url_for('add_order'))
     return render_template('addorder.html', title='Dodaj zlecenie', form = form, Order=Order, Cars = Cars)
 
+
 @app.route("/car/<int:id_car>")
 def car(id_car):
     Car = Samochody.query.get_or_404(id_car)
@@ -200,10 +201,12 @@ def show_order():
     Car = Samochody.query.all()
     return render_template('showorder.html', Orders=Orders, Car = Car)
 
+
 @app.route("/user/<int:id_user>")
 def user(id_user):
     User = Uzytkownicy.query.get_or_404(id_user)
     return render_template('user.html', user = User)
+
 
 @app.route("/user/<int:id_user>/delete", methods=['GET', 'POST'])
 @login_required
@@ -213,7 +216,6 @@ def delete_user(id_user):
     db.session.commit()
     flash('Zlecenie zostało usunięte', 'success')
     return redirect(url_for('show_users'))
-
 
 
 @app.route("/showcarorder", methods=['GET', 'POST'])
@@ -256,6 +258,8 @@ def show_cars():
         return render_template('drivercars.html', Cars=Cars)
     else:
         return render_template('showcars.html', Cars = Cars)
+
+
 @app.route("/showusers", methods=['GET', 'POST'])
 def show_users():
     Users = Uzytkownicy.query.all()
