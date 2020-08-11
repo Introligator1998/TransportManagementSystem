@@ -22,7 +22,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[Email()])
     password = PasswordField('Hasło', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
-    submit = SubmitField('Zaloguj')
+    submit = SubmitField('Zalogujf')
 
 
 class RegisterForm(FlaskForm):
@@ -50,7 +50,7 @@ class RegisterForm(FlaskForm):
 
 class AddNote(FlaskForm):
     tytul = StringField('Tytul notatki')
-    tresc = StringField('Tresc notatki')
+    tresc = TextAreaField('Tresc notatki')
     add = SubmitField('Dodaj notatke')
 
 
