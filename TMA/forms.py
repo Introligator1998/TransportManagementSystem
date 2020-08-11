@@ -55,9 +55,9 @@ class AddNote(FlaskForm):
 
 
 class AddCar(FlaskForm):
-    marka = StringField('Marka Samochodu')
-    nazwa = StringField('Nazwa Samochodu')
-    model = StringField('Model Samochodu')
+    marka = StringField('Marka i model samochodu')
+    nazwa = StringField('Nazwa samochodu')
+    model = StringField('Typ i wymiary samochodu')
     rejestracja = StringField('Numer Rejestracyjny Samochodu')
     przeglad = StringField('Termin następnego przeglądu')
     add = SubmitField('Dodaj Samochód')

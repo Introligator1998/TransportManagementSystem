@@ -12,7 +12,7 @@
     </tr>
     {% for note in notes %}
     <tr>
-        <td> <a href="{{ url_for('note', id_note=note.id_notatki) }}">{{ note.tytul }}</a></td>
+        <td> <h5><a href="{{ url_for('note', id_note=note.id_notatki) }}">{{ note.tytul }}</a></h5></td>
     </tr>
     {% endfor %}
 </table>
