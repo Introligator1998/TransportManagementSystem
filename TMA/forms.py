@@ -54,6 +54,12 @@ class AddNote(FlaskForm):
     add = SubmitField('Dodaj notatke')
 
 
+class UpdateNote(FlaskForm):
+    tytul = StringField('Tytul notatki')
+    tresc = StringField('Tresc notatki')
+    add = SubmitField('Zmień notatke')
+
+
 class AddCar(FlaskForm):
     marka = StringField('Marka i model samochodu')
     nazwa = StringField('Nazwa samochodu')
@@ -73,7 +79,7 @@ class UpdateCar(FlaskForm):
 
 class AddOrder(FlaskForm):
     order_id = StringField('ID zlecenia', validators=[DataRequired()])
-    customer = StringField('Klient')
+    customer = StringField('Klient', validators= [DataRequired()])
     place = StringField('Adresy')
     price = StringField('Wartość zlecenia')
     customer_phone = StringField('Telefon do zleceniodawcy')

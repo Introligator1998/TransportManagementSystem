@@ -3,21 +3,21 @@
 <table class="table table-striped" style="width: 100%" xmlns:width="http://www.w3.org/1999/xhtml">
     <tr>
         <th style = "width: 16%">Klient</th>
-        <th style = "width: 12%">Telefon</th>
-        <th style = "width: 15%">Lokalizacja</th>
         <th style = "width: 20%">Czas_zlecenia</th>
-        <th style = "width: 12%">Samochód</th>
+        <th style = "width: 15%">Lokalizacja</th>
+        <th style = "width: 12%">Telefon</th>
         <th style = "width: 10%">Wartosc</th>
+        <th style = "width: 12%">Samochód</th>
         <th style = "width: 65%">Uwagi</th>
     </tr>
     {% for order in Orders %}
     <tr>
         <td> <a href="{{ url_for('order', id_order=order.id_zlecenia) }}">{{ order.zleceniodawca }}</a></td>
-        <td > {{ order.telefon }} </td>
-        <td > {{ order.miejsce }} </td>
         <td> {{order.czas_r}}</td>
-        <td> {{order.nazwa_samochodu}}</td>
+        <td > {{ order.miejsce }} </td>
+        <td > {{ order.telefon }} </td>
         <td> {{order.cena}} PLN </td>
+        <td> {{order.nazwa_samochodu}}</td>
         <td> {{order.notatka}}</td>
     </tr>
     {% endfor %}
