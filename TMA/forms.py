@@ -22,14 +22,14 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[Email()])
     password = PasswordField('Hasło', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
-    submit = SubmitField('Zaloguj')
+    submit = SubmitField('Zalogujf')
 
 
 class RegisterForm(FlaskForm):
-    name = StringField('Imię', validators=[DataRequired()])
-    surname = StringField('Nazwisko', validators=[DataRequired()])
+    name = StringField('Imię')
+    surname = StringField('Nazwisko')
     login = StringField ('Login', validators=[DataRequired()])
-    email = StringField ('Email', validators = [Email()])
+    #email = StringField ('Email',validator = [Email])
     password = PasswordField('Hasło', validators=[DataRequired()])
     confirm_password = PasswordField('Powtórz hasło', validators=[DataRequired(), EqualTo('password')])
     permissions = RadioField('Uprawnienia', choices=[
@@ -50,32 +50,41 @@ class RegisterForm(FlaskForm):
 
 class AddNote(FlaskForm):
     tytul = StringField('Tytul notatki')
-    tresc = StringField('Tresc notatki')
+    tresc = TextAreaField('Tresc notatki', render_kw={"rows": 12, "cols": 11})
     add = SubmitField('Dodaj notatke')
 
 
 class UpdateNote(FlaskForm):
     tytul = StringField('Tytul notatki')
-    tresc = StringField('Tresc notatki')
+    tresc = TextAreaField('Tresc notatki', render_kw={"rows": 12, "cols": 11})
     add = SubmitField('Zmień notatke')
 
 
 class AddCar(FlaskForm):
-    marka = StringField('Marka Samochodu')
-    nazwa = StringField('Nazwa Samochodu')
-    model = StringField('Model Samochodu')
+    marka = StringField('Marka i model samochodu')
+    nazwa = StringField('Nazwa samochodu')
+    wymiary = StringField('Typ i wymiary samochodu')
     rejestracja = StringField('Numer Rejestracyjny Samochodu')
+    rok = StringField('Rok produkcji')
+    leasing = StringField('Leasing')
+    polisa_nr = StringField('Numer polisy')
+    polisa_data = StringField('Data ważności polisy')
+    pin = StringField('PIN do karty')
     przeglad = StringField('Termin następnego przeglądu')
     add = SubmitField('Dodaj Samochód')
 
 class UpdateCar(FlaskForm):
-    marka = StringField('Marka Samochodu')
-    model = StringField('Model Samochodu')
+    marka = StringField('Marka i model samochodu')
+    nazwa = StringField('Nazwa samochodu')
+    wymiary = StringField('Typ i wymiary samochodu')
     rejestracja = StringField('Numer Rejestracyjny Samochodu')
-    nazwa = StringField('Nazwa Samochodu')
+    rok = StringField('Rok produkcji')
+    leasing = StringField('Leasing')
+    polisa_nr = StringField('Numer polisy')
+    polisa_data = StringField('Data ważności polisy')
+    pin = StringField('PIN do karty')
     przeglad = StringField('Termin następnego przeglądu')
-    add = SubmitField('Dodaj Samochód')
-
+    add = SubmitField('Zmień')
 
 class AddOrder(FlaskForm):
     order_id = StringField('ID zlecenia', validators=[DataRequired()])

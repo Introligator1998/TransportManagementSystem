@@ -23,16 +23,23 @@ class Samochody(db.Model):
     id_samochodu = db.Column(db.Integer, primary_key = True)
     marka = db.Column(db.String(50))
     nazwa = db.Column(db.String(50))
-    model = db.Column(db.String(50))
+    #model = db.Column(db.String(50))
     nr_rej = db.Column(db.String(12))
+    rok = db.Column(db.String(12))
+    wymiary = db.Column(db.String(50))
+    leasing = db.Column(db.String(50))
+    polisa_nr = db.Column(db.String(50))
+    polisa_data = db.Column(db.String(50))
+    pin = db.Column(db.String(50))
     data_przegladu = db.Column(db.String(25))
+
 
 
 class Zlecenia (db.Model):
     __tablename__ = 'zlecenia'
     id_zlecenia = db.Column(db.Integer, primary_key = True)
     miejsce = db.Column(db.String(150))
-    czas_r = db.Column(db.DateTime, nullable = False)
+    czas_r = db.Column(db.String(30), nullable = False)
     cena = db.Column(db.String(30))
     zleceniodawca = db.Column(db.String(50), nullable=False)
     telefon = db.Column(db.String(15))

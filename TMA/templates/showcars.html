@@ -8,17 +8,29 @@
     <tr>
         <thead>
             <th>Nazwa</th>
-            <th>Model</th>
+            <th>Marka/Model</th>
+            <th>Typ i wymiary </th>
+            <th> Rok produkcji </th>
+            <th> Leasing </th>
             <th>Numer rejestracyjny</th>
             <th>Data przeglądu</th>
+            <th> Numer polisy</th>
+            <th> Data polisy </th>
+            <th> PIN </th>
         </thead>
     </tr>
     {% for cars in Cars %}
     <tr>
         <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.nazwa }}</a></td>
-        <td> {{ cars.model }} </td>
+        <td> {{ cars.marka }} </td>
+        <td> {{cars.wymiary}}</td>
+        <td> {{cars.rok}} </td>
+        <td> {{cars.leasing}}</td>
         <td> {{ cars.nr_rej }} </td>
         <td> {{ cars.data_przegladu }}</td>
+        <td> {{ cars.polisa_nr}}</td>
+        <td> {{cars.polisa_data}} </td>
+        <td> {{cars.pin}}</td>
     </tr>
     {% endfor %}
 </table>

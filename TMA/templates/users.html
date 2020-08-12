@@ -10,7 +10,6 @@
             <th>Imię</th>
             <th>Nazwisko</th>
             <th>Login</th>
-            <th>E-mail</th>
             <th>Uprawnienia</th>
             <th></th>
         </thead>
@@ -20,7 +19,6 @@
         <td> <a href="{{ url_for('user', id_user=user.id_uzytkownika) }}"> {{ user.name }}</a></td>
         <td> {{ user.surname }} </td>
         <td> {{ user.login }} </td>
-        <td> {{ user.email }}</td>
         <td> {{ user.id_upr }}</td>
     </tr>
     {% endfor %}

@@ -16,6 +16,7 @@
         <thead>
             <th>Nazwa</th>
             <th>Model</th>
+            <th>Wymiary</th>
             <th>Numer rejestracyjny</th>
             <th>Data przeglądu</th>
         </thead>
@@ -23,7 +24,8 @@
     {% for cars in Cars %}
     <tr>
         <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.nazwa }}</a></td>
-        <td> {{ cars.model }} </td>
+        <td> {{ cars.marka }} </td>
+        <td> {{cars.wymiary}}</td>
         <td> {{ cars.nr_rej }} </td>
         <td> {{ cars.data_przegladu }}</td>
         <td>
