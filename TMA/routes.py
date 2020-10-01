@@ -56,7 +56,7 @@ def add_order():
 
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
-                         telefon=form.customer_phone.data, czas_r=form.date_from.data, id_samochodu=form.id_car.data,notatka = form.notatka.data,
+                         telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
                          nazwa_samochodu=car_name)
         
         db.session.add(order)
@@ -179,7 +179,7 @@ def update_order(id_order):
         czas_r = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
-        Order.czas_r = form.date_from.data
+        Order.czas_r = czas_r
         Order.cena = form.price.data
         Order.notatka = form.notatka.data
         Order.telefon = form.customer_phone.data
