@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <form role="form" method="post" action="/show_orders_for_cars">
+    <form autocomplete="off" role="form" method="post" action="/show_orders_for_cars">
         <table style="width:100%" class=" table table-striped">
 <link rel = "stylesheet" href ="../static/dtest/jquery.datetimepicker.min.css">
 <script src = "../static/dtest/jquery.js"></script>
@@ -8,7 +8,7 @@
 
 <div class ="container mt-5 mb-5" style="width:500px">
     <h5 class = "article-title" style = "margin-left: 160px; margin-bottom: 30px">Wybierz datę</h5>
-    <input type="text" id="dateorder" class="form-control" name="dateorder" required>
+    <input autocomplete="off" type="text" id="dateorder" class="form-control" name="dateorder" required >
     <h5 class = "article-title" style = "margin-left:25px; margin-top: 50px">Wybierz samochody do wyświetlenia zleceń</h5>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -19,7 +19,8 @@
     $('#dateorder').datetimepicker({
         timepicker: false,
         datepicker: true,
-        format: 'Y-m-d'
+        format: 'd-m-Y',
+
     })
 
 </script>

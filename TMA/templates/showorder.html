@@ -10,10 +10,10 @@
         <th style = "width: 12%">Samochód</th>
         <th style = "width: 65%">Uwagi</th>
     </tr>
-    {% for order in Orders %}
+    {% for order in orders %}
     <tr>
         <td> <a href="{{ url_for('order', id_order=order.id_zlecenia) }}">{{ order.zleceniodawca }}</a></td>
-        <td> {{order.czas_r}}</td>
+        <td> {{ order.czas_r.strftime("%d-%m-%Y %H:%M")}}</td>
         <td > {{ order.miejsce }} </td>
         <td > {{ order.telefon }} </td>
         <td> {{order.cena}}  </td>

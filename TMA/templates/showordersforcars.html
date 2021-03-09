@@ -13,7 +13,7 @@ th, td {
 <script src = "../static/dtest/jquery.js"></script>
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
     <p class="text-center">Wybrana data</p>
-    <p class="text-center">{{ datestart.strftime('%Y-%m-%d') }}</p>
+    <p class="text-center">{{ datestart.strftime('%d-%m-%Y') }}</p>
     <table class = "table table-striped">
         <tr>
             {% for car in Cars %}
@@ -32,7 +32,7 @@ th, td {
                                     <tr>
                                         <td>
                                             <a href="{{ url_for('order', id_order=order.id_zlecenia) }}">
-                                                {{ order.czas_r.strftime('%H:%M') }}
+                                                {{ order.czas_r.strftime("%H:%M") }}
                                             </a>
                                         </td>
                                         <td>

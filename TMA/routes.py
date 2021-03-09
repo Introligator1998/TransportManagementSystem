@@ -138,7 +138,7 @@ def show_orders_for_cars():
     min_car_id = int(request.form['page_number'])*3-2
     max_car_id = int(request.form['page_number'])*3
 
-    datestart = datetime.strptime(request.form['dateorder'], '%Y-%m-%d')
+    datestart = datetime.strptime(request.form['dateorder'], '%d-%m-%Y')
 
     datefinish = datestart + timedelta(days=1)
 
@@ -170,13 +170,14 @@ def order(id_order):
 def update_order(id_order):
     Order = Zlecenia.query.get_or_404(id_order)
     Cars = Samochody.query.all()
+
     # if post.author != current_user:
     #     abort(403)
     form = UpdateOrder()
     czas_r = datetime.now()
 
     if form.validate_on_submit():
-        czas_r = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
+        czas_r = datetime.strptime(form.date_from.data, '%d-%m-%Y %H:%M')
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
         Order.czas_r = czas_r
@@ -190,6 +191,7 @@ def update_order(id_order):
         form.customer.data = Order.zleceniodawca
         form.place.data = Order.miejsce
         czas_r = Order.czas_r
+
         form.price.data = Order.cena
         form.notatka.data = Order.notatka
         form.customer_phone.data = Order.telefon
@@ -211,9 +213,12 @@ def delete_order(id_order):
 
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
-    Orders = Zlecenia.query.all()
+    Order = Zlecenia.query.all()
+
     Car = Samochody.query.all()
-    return render_template('showorder.html', Orders=Orders, Car = Car)
+
+    #str_time = Order.czas_r.strftime()
+    return render_template('showorder.html', orders=Order, Car = Car)
 
 
 @app.route("/user/<int:id_user>")
@@ -236,7 +241,7 @@ def delete_user(id_user):
 def show_car_order():
     id_car = request.form['id_car']
     dateorder_with_time = request.form['dateorder']
-    dateorder = datetime.strptime(dateorder_with_time, '%Y-%m-%d')
+    dateorder = datetime.strptime(dateorder_with_time, '%d-%m-%Y')
     datefinish = dateorder + timedelta(days=1)
 
     Orders = Zlecenia.query\
