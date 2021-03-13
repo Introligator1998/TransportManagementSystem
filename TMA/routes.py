@@ -36,7 +36,7 @@ def register():
      #   return redirect(url_for('home'))
     form = RegisterForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
         user = Uzytkownicy(name = form.name.data,surname = form.surname.data, login=form.login.data, password=hashed_password,id_upr=form.permissions.data)
         db.session.add(user)
         db.session.commit()
@@ -213,7 +213,7 @@ def delete_order(id_order):
 
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
-    Order = Zlecenia.query.all()
+    Order = Zlecenia.query.order_by(Zlecenia.czas_r).all()
 
     Car = Samochody.query.all()
 
@@ -241,16 +241,17 @@ def delete_user(id_user):
 def show_car_order():
     id_car = request.form['id_car']
     dateorder_with_time = request.form['dateorder']
-    dateorder = datetime.strptime(dateorder_with_time, '%d-%m-%Y')
+    dateorder = datetime.strptime(dateorder_with_time, '%Y-%m-%d')
     datefinish = dateorder + timedelta(days=1)
-
-    Orders = Zlecenia.query\
+    print(dateorder)
+    print(datefinish)
+    Order = Zlecenia.query\
         .filter_by(id_samochodu=id_car)\
         .filter(Zlecenia.czas_r < datefinish)\
         .filter(Zlecenia.czas_r >= dateorder)\
         .all()
 
-    return render_template('showorder.html', Orders = Orders)
+    return render_template('showorder.html', orders = Order)
 
 
 def split_list(domain, interval):

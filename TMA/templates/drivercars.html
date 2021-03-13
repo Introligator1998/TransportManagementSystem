@@ -9,7 +9,7 @@
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
 <div class = "ml-5">
     <h3 class = "article-title" style="margin-left:70px">Wybierz datę</h3>
-    <input type="text" id="dateorder" class="form-control rounded-left ml-2" name="dateorder" style = "width:300px;" required>
+    <input type="text" id="dateorder" class="form-control rounded-left ml-2" name="dateorder" style = "width:300px;" required autocomplete="off">
 </div>
 <table class = "table table-striped" style="width:40%">
     <tr>
@@ -42,7 +42,7 @@
     $('#dateorder').datetimepicker({
         timepicker: false,
         datepicker: true,
-        format: 'd-m-Y'
+        format: 'Y-m-d'
     })
 </script>
 </form>

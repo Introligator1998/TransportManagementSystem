@@ -10,7 +10,7 @@
                 <legend class="border-bottom mb-4">Dodawanie Nowego Zlecenia</legend>
                                 <div class="form-group">
                     {{ form.customer.label(class="form-control-label") }}
-                    {{ form.customer(class="form-control form-control-lg is-invalid")}}
+                    {{ form.customer(class="form-control form-control-lg is-invalid", autocomplete="off")}}
                 </div>
                 <div class ="form-group">
                     {{ form.date_from.label(class="form-control-label") }}
@@ -20,7 +20,7 @@
                         $("#date_from").datetimepicker()({
                          timepicker: true,
                          datepicker: true,
-                         format: 'd-m-Y G:i'
+                         format: "d-m-Y H:i"
                      });
 
                     </script>
