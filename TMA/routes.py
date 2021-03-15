@@ -297,12 +297,12 @@ def show_logistic_cars():
     Cars = Samochody.query.all()
     car_pages_split = split_list(Cars, 3)
     car_names = list()
-
+    today = datetime.today()
     for page in car_pages_split:
         page_car_names = '/'.join([car.nazwa for car in page])
         car_names.append(page_car_names)
 
-    return render_template('logisticcars.html', car_names=car_names)
+    return render_template('logisticcars.html', car_names=car_names,today=today)
 
 
 @app.route("/showcars", methods=['GET', 'POST'])
