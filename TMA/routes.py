@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from TMA import app, db, bcrypt
-from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar, OrdersForCars, AddNote, UpdateNote
+from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar, OrdersForCars, AddNote, UpdateNote,UpdateUserForm
 from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, Notatki
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
@@ -201,6 +201,40 @@ def update_order(id_order):
                             legend='Update Order',Order = Order,Cars = Cars, form = form, czas_r = czas_r)
 
 
+
+
+@app.route("/user/<int:id_user>/update", methods=['GET', 'POST'])
+@login_required
+def update_user(id_user):
+    User = Uzytkownicy.query.get_or_404(id_user)
+
+
+    form = UpdateUserForm()
+    czas_r = datetime.now()
+
+    if form.validate_on_submit():
+        #czas_r = datetime.strptime(form.date_from.data, '%d-%m-%Y %H:%M')
+        User.name = form.name.data
+        User.surname = form.surname.data
+        User.login = form.login.data
+        User.password = form.password.data
+        User.id_upr = form.permissions.data
+        db.session.commit()
+        flash('Użytkownik został zaktualizowany!', 'success')
+        return redirect(url_for('user', id_user=User.id_uzytkownika))
+
+    elif request.method == 'GET':
+        form.name.data = User.name
+        form.surname.data = User.surname
+        form.login.data = User.login
+        #form.password.data = User.password
+        form.permissions.data = User.id_upr
+
+
+    return render_template('updateuser.html', title='Update User',
+                            legend='Update User',User = User, form = form)
+
+
 @app.route("/order/<int:id_order>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_order(id_order):
@@ -274,8 +308,9 @@ def show_logistic_cars():
 @app.route("/showcars", methods=['GET', 'POST'])
 def show_cars():
     Cars = Samochody.query.all()
+    today = datetime.today();
     if current_user.id_upr == 3:
-        return render_template('drivercars.html', Cars=Cars)
+        return render_template('drivercars.html', Cars=Cars,today=today)
     else:
         return render_template('showcars.html', Cars = Cars)
 

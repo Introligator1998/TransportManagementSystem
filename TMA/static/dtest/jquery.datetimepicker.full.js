@@ -96,10 +96,10 @@ var datetimepickerFactory = function ($) {
 			},
 			en: { // English
 				months: [
-					"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+					"Styczeń", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 				],
 				dayOfWeekShort: [
-					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+					"Nie", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 				],
 				dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 			},
@@ -600,7 +600,7 @@ var datetimepickerFactory = function ($) {
 		hours12: false,
 		next: 'xdsoft_next',
 		prev : 'xdsoft_prev',
-		dayOfWeekStart: 0,
+		dayOfWeekStart: 1,
 		parentID: 'body',
 		timeHeightInTimePicker: 25,
 		timepickerScrollbar: true,
@@ -643,8 +643,8 @@ var datetimepickerFactory = function ($) {
 
 	var dateHelper = null,
 		defaultDateHelper = null,
-		globalLocaleDefault = 'en',
-		globalLocale = 'en';
+		globalLocaleDefault = 'pl',
+		globalLocale = 'pl';
 
 	var dateFormatterOptionsDefault = {
 		meridiem: ['AM', 'PM']

@@ -92,11 +92,15 @@
                      {{ form.polisa_data(class="form-control form-control-lg", autocomplete="off") }}
                  </div>
                 <script>
+
                      $("#polisa_data").datetimepicker({
+                         dayOfWeekStart: 1,
                          timepicker: false,
                          datepicker: true,
-                         format: 'd-m-Y'
+                         format: 'd-m-Y',
+                         weeks: true,
                      });
+
                 </script>
                 <div class="form-group">
                     {{ form.pin.label(class="form-control-label") }}

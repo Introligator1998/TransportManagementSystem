@@ -9,7 +9,7 @@
 <script src = "../static/dtest/jquery.datetimepicker.full.js"></script>
 <div class = "ml-5">
     <h3 class = "article-title" style="margin-left:70px">Wybierz datę</h3>
-    <input type="text" id="dateorder" class="form-control rounded-left ml-2" name="dateorder" style = "width:300px;" required autocomplete="off">
+    <input type="text" id="dateorder" class="form-control rounded-left ml-2" name="dateorder" style = "width:300px;" required autocomplete="off" value="{{today.strftime('%Y-%m-%d')}}">
 </div>
 <table class = "table table-striped" style="width:40%">
     <tr>
@@ -23,7 +23,7 @@
     </tr>
     {% for cars in Cars %}
     <tr>
-        <td> <a href="{{ url_for('car', id_car=cars.id_samochodu) }}">{{ cars.nazwa }}</a></td>
+        <td> {{ cars.nazwa }}</td>
         <td> {{ cars.marka }} </td>
         <td> {{cars.wymiary}}</td>
         <td> {{ cars.nr_rej }} </td>

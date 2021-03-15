@@ -116,3 +116,17 @@ class Date(FlaskForm):
 class OrdersForCars(FlaskForm):
     dateorder = StringField("Wybierz datę", validators = [DataRequired()])
     sub = SubmitField('Zatwierdź')
+
+
+class UpdateUserForm(FlaskForm):
+    name = StringField('Imię')
+    surname = StringField('Nazwisko')
+    login = StringField ('Login', validators=[DataRequired()])
+    #email = StringField ('Email',validator = [Email])
+    password = PasswordField('Hasło', validators=[DataRequired()])
+    confirm_password = PasswordField('Powtórz hasło', validators=[DataRequired(), EqualTo('password')])
+    permissions = RadioField('Uprawnienia', choices=[
+        (1, 'Manager'), (2, 'Logistyk'), (3, 'Kierowca')],
+                         default=1, coerce=int)
+    submit = SubmitField("Stwórz Użytkownika")
+
