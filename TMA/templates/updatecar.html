@@ -54,6 +54,15 @@
                             <a class="nav-item nav-link bg-primary" href="{{ url_for('show_notes') }}">Wszystkie notatki</a>
                         </div>
                     </div>
+                    <div class="btn-group col-md-2" style="width:180px; margin-right:0px;" >
+                        <button class="btn btn-danger dropdown-toggle" style="width:180px; margin-right:0px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Notatki
+                         </button>
+                        <div class="dropdown-menu container-fluid " aria-labelledby="dropdownMenuButton">
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('add_note') }}">Dodaj notatkę</a>
+                            <a class="nav-item nav-link bg-primary" href="{{ url_for('show_notes') }}">Wszystkie notatki</a>
+                        </div>
+                    </div>
 
                     <div class="btn-group col-md-2" style="width:180px; margin-right:0px;" >
                         <button class="btn btn-danger dropdown-toggle" style="width:180px; margin-right:0px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
