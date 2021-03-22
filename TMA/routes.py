@@ -207,8 +207,6 @@ def update_order(id_order):
 @login_required
 def update_user(id_user):
     User = Uzytkownicy.query.get_or_404(id_user)
-
-
     form = UpdateUserForm()
     czas_r = datetime.now()
 
@@ -217,7 +215,8 @@ def update_user(id_user):
         User.name = form.name.data
         User.surname = form.surname.data
         User.login = form.login.data
-        User.password = form.password.data
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        User.password = hashed_password
         User.id_upr = form.permissions.data
         db.session.commit()
         flash('Użytkownik został zaktualizowany!', 'success')
@@ -227,7 +226,7 @@ def update_user(id_user):
         form.name.data = User.name
         form.surname.data = User.surname
         form.login.data = User.login
-        #form.password.data = User.password
+        form.password.data = User.password
         form.permissions.data = User.id_upr
 
 

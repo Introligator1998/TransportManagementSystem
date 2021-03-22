@@ -14,23 +14,20 @@
 <table class = "table table-striped" style="width:40%">
     <tr>
         <thead>
+            <th></th>
             <th>Nazwa</th>
-            <th>Model</th>
             <th>Wymiary</th>
             <th>Numer rejestracyjny</th>
-            <th>Data przeglądu</th>
         </thead>
     </tr>
     {% for cars in Cars %}
     <tr>
-        <td> {{ cars.nazwa }}</td>
-        <td> {{ cars.marka }} </td>
-        <td> {{cars.wymiary}}</td>
-        <td> {{ cars.nr_rej }} </td>
-        <td> {{ cars.data_przegladu }}</td>
         <td>
             <button class="btn btn-primary" type="submit" value="{{ cars.id_samochodu }}" name="id_car" id="{{ cars.id_samochodu }}" formaction="{{ url_for('show_car_order') }}">Wybierz</button>
         </td>
+        <td> {{ cars.nazwa }}</td>
+        <td> {{cars.wymiary}}</td>
+        <td> {{ cars.nr_rej }} </td>
     </tr>
     {% endfor %}
 </table>
