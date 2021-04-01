@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, SelectMultipleField, SelectField
 
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from TMA.models import Uzytkownicy
@@ -87,6 +87,7 @@ class UpdateCar(FlaskForm):
     add = SubmitField('Zmień')
 
 class AddOrder(FlaskForm):
+
     order_id = StringField('ID zlecenia', validators=[DataRequired()])
     customer = StringField('Klient', validators= [DataRequired()])
     place = StringField('Adresy')
@@ -96,9 +97,11 @@ class AddOrder(FlaskForm):
     id_car = StringField('Dodaj Samochod', validators = [DataRequired()])
     notatka = TextAreaField('Opis')
     sub = SubmitField('Dodaj Zlecenie')
-
+    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Opcja 1'), ('2', 'Opcja 2'), ('3', 'Opcja 3'),('4', 'Opcja 4')])
+    author = StringField('Zlecenie dodał:', validators = [DataRequired()])
 
 class UpdateOrder(FlaskForm):
+
     #order_id = StringField('ID zlecenia', validators=[DataRequired()])
     customer = StringField('Klient',validators= [DataRequired()])
     place = StringField('Miejsce zlecenia')
@@ -109,7 +112,11 @@ class UpdateOrder(FlaskForm):
     # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
     sub = SubmitField('Aktualizuj Zlecenie')
     notatka = TextAreaField('Opis')
+    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Opcja 1'), ('2', 'Opcja 2'), ('3', 'Opcja 3'),('4', 'Opcja 4')])
+    author = StringField('Zlecenie dodał:', validators = [DataRequired()])
+
 class Date(FlaskForm):
+
     date = StringField("Wybierz datę", validators = [DataRequired()])
     date_sub = SubmitField('Zatwierdź')
 
@@ -117,8 +124,8 @@ class OrdersForCars(FlaskForm):
     dateorder = StringField("Wybierz datę", validators = [DataRequired()])
     sub = SubmitField('Zatwierdź')
 
-
 class UpdateUserForm(FlaskForm):
+
     name = StringField('Imię')
     surname = StringField('Nazwisko')
     login = StringField ('Login', validators=[DataRequired()])

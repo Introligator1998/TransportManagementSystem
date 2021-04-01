@@ -57,7 +57,7 @@ def add_order():
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
         order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
                          telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
-                         nazwa_samochodu=car_name)
+                         nazwa_samochodu=car_name, info = form.info.data, author = form.author.data)
         
         db.session.add(order)
         db.session.commit()
@@ -184,6 +184,8 @@ def update_order(id_order):
         Order.cena = form.price.data
         Order.notatka = form.notatka.data
         Order.telefon = form.customer_phone.data
+        Order.info = form.info.data
+        Order.author = form.author.data
         db.session.commit()
         flash('Zlecenie zostało zaktualizowane!', 'success')
         return redirect(url_for('order', id_order=Order.id_zlecenia))
@@ -191,10 +193,11 @@ def update_order(id_order):
         form.customer.data = Order.zleceniodawca
         form.place.data = Order.miejsce
         czas_r = Order.czas_r
-
         form.price.data = Order.cena
         form.notatka.data = Order.notatka
         form.customer_phone.data = Order.telefon
+        form.info.data = Order.info
+        form.author.data = Order.author
 
 
     return render_template('updateorder.html', title='Update Order',

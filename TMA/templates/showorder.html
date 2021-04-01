@@ -9,6 +9,7 @@
         <th style = "width: 10%">Wartosc</th>
         <th style = "width: 12%">Samochód</th>
         <th style = "width: 65%">Uwagi</th>
+        <th> Dodał</th>
     </tr>
     {% for order in orders %}
     <tr>
@@ -19,6 +20,7 @@
         <td> {{order.cena}}  </td>
         <td> {{order.nazwa_samochodu}}</td>
         <td> {{order.notatka}}</td>
+        <td>{{order.author}}</td>
     </tr>
     {% endfor %}
 </table>

@@ -47,7 +47,8 @@ class Zlecenia (db.Model):
     id_samochodu = db.Column(db.Integer, db.ForeignKey('samochody.id_samochodu'),nullable=False)
     nazwa_samochodu = db.Column(db.String(50), db.ForeignKey('samochody.nazwa'), nullable=False)
     notatka = db.Column(db.String(500))
-
+    info = db.Column(db.String(50))
+    author = db.Column(db.String(50))
 
 class Notatki(db.Model):
     __tablename__ = "notatki"
