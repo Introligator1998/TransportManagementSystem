@@ -290,6 +290,23 @@ def show_car_order():
     return render_template('showorder.html', orders = Order)
 
 
+@app.route("/showfutureorder", methods=['GET', 'POST'])
+def show_future_order():
+    today = datetime.today()
+    Order = Zlecenia.query \
+        .filter(Zlecenia.czas_r >= today) \
+        .all()
+
+    return render_template('showorder.html', orders=Order)
+@app.route("/show_pas_order", methods=['GET', 'POST'])
+def show_past_order():
+    today = datetime.today()
+    Order = Zlecenia.query \
+        .filter(Zlecenia.czas_r < today) \
+        .all()
+
+    return render_template('showorder.html', orders=Order)
+
 def split_list(domain, interval):
     return [domain[i:i + interval] for i in range(0, len(domain), interval)]
 

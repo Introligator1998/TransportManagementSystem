@@ -97,7 +97,7 @@ class AddOrder(FlaskForm):
     id_car = StringField('Dodaj Samochod', validators = [DataRequired()])
     notatka = TextAreaField('Opis')
     sub = SubmitField('Dodaj Zlecenie')
-    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Opcja 1'), ('2', 'Opcja 2'), ('3', 'Opcja 3'),('4', 'Opcja 4')])
+    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Google'), ('2', 'Olx'), ('3', 'Gumtree'),('4', 'Fixly'),('5','Polecenie'), ('6','Stały klient'),('7','Ulotka'), ('8', 'Inne')])
     author = StringField('Zlecenie dodał:', validators = [DataRequired()])
 
 class UpdateOrder(FlaskForm):
@@ -112,7 +112,7 @@ class UpdateOrder(FlaskForm):
     # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
     sub = SubmitField('Aktualizuj Zlecenie')
     notatka = TextAreaField('Opis')
-    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Opcja 1'), ('2', 'Opcja 2'), ('3', 'Opcja 3'),('4', 'Opcja 4')])
+    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Google'), ('2', 'Olx'), ('3', 'Gumtree'),('4', 'Fixly'),('5','Polecenie'), ('6','Stały klient'),('7','Ulotka'), ('8', 'Inne')])
     author = StringField('Zlecenie dodał:', validators = [DataRequired()])
 
 class Date(FlaskForm):
