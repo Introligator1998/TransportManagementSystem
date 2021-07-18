@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, SelectMultipleField, SelectField
 
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
 from TMA.models import Uzytkownicy
 
 
@@ -50,13 +50,13 @@ class RegisterForm(FlaskForm):
 
 class AddNote(FlaskForm):
     tytul = StringField('Tytul notatki')
-    tresc = TextAreaField('Tresc notatki', render_kw={"rows": 12, "cols": 11})
+    tresc = TextAreaField('Tresc notatki')
     add = SubmitField('Dodaj notatke')
 
 
 class UpdateNote(FlaskForm):
     tytul = StringField('Tytul notatki')
-    tresc = TextAreaField('Tresc notatki', render_kw={"rows": 12, "cols": 11})
+    tresc = TextAreaField('Tresc notatki')
     add = SubmitField('Zmień notatke')
 
 
