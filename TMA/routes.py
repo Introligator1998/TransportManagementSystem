@@ -272,7 +272,7 @@ def delete_order(id_order):
 
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
-    Order = Zlecenia.query.order_by(Zlecenia.czas_r).all()
+    Order = Zlecenia.query.order_by(Zlecenia.czas_r.desc()).all()
     Car = Samochody.query.all()
 
     #str_time = Order.czas_r.strftime()
@@ -315,17 +315,15 @@ def show_car_order():
 @app.route("/showfutureorder", methods=['GET', 'POST'])
 def show_future_order():
     today = datetime.today()
-    Order = Zlecenia.query \
-        .filter(Zlecenia.czas_r >= today) \
-        .all()
+    Order = Zlecenia.query.filter(Zlecenia.czas_r >= today).order_by(Zlecenia.czas_r).all()
+
 
     return render_template('showorder.html', orders=Order)
-@app.route("/show_pas_order", methods=['GET', 'POST'])
+@app.route("/show_past_order", methods=['GET', 'POST'])
 def show_past_order():
     today = datetime.today()
     Order = Zlecenia.query \
-        .filter(Zlecenia.czas_r < today) \
-        .all()
+        .filter(Zlecenia.czas_r < today).order_by(Zlecenia.czas_r.desc()).all()
 
     return render_template('showorder.html', orders=Order)
 
