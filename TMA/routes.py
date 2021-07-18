@@ -18,9 +18,13 @@ from TMA import app, db, bcrypt
 from TMA.forms import LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder, UpdateCar, OrdersForCars, AddNote, \
     UpdateNote, UpdateUserForm
 from TMA.models import Uzytkownicy, Samochody, Zlecenia, Notatki
+import sys
+from os.path import dirname, realpath
+
+sys.path.append(dirname(f"{realpath(__file__)}\..\wkhtmltopdf.exe"))
 
 db.create_all()
-path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+path_wkhtmltopdf = f'{dirname(realpath(__file__))}\..\wkhtmltopdf.exe'
 config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 @app.route('/date')
@@ -186,7 +190,7 @@ def generate_pdf(id_order):
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
-
+    return redirect(url_for('show_order'))
 
 @app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])
 @login_required
