@@ -29,3 +29,4 @@ htmlcov/
 venv
 
 TMA/dostawa.db
+TMA/media/
