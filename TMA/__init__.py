@@ -2,6 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from OpenSSL import  SSL
+context = SSL.Context(SSL.SSLv23_METHOD)
+
+
 
 app = Flask(__name__)
 

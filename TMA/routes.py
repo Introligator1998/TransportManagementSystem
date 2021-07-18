@@ -1,18 +1,27 @@
-import os
-import secrets
-from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, abort
+from flask import render_template, url_for, flash, redirect, request
 from TMA import app, db, bcrypt
 from TMA.forms import  LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder,UpdateCar, OrdersForCars, AddNote, UpdateNote,UpdateUserForm
-from TMA.models import Uzytkownicy, Uprawnienia, Samochody, Zlecenia, Notatki
+from TMA.models import Uzytkownicy, Samochody, Zlecenia, Notatki
 from flask_login import login_user, current_user, logout_user, login_required
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, RadioField, DateField
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
+from OpenSSL import SSL
+from sqlalchemy import asc
 
-from sqlalchemy import text, asc
+import pdfkit
+from datetime import datetime, timedelta
+
+from flask import render_template, url_for, flash, redirect, request, make_response
+from flask_login import login_user, current_user, logout_user, login_required
+from sqlalchemy import asc
+
+from TMA import app, db, bcrypt
+from TMA.forms import LoginForm, RegisterForm, AddCar, AddOrder, UpdateOrder, UpdateCar, OrdersForCars, AddNote, \
+    UpdateNote, UpdateUserForm
+from TMA.models import Uzytkownicy, Samochody, Zlecenia, Notatki
+
 db.create_all()
-
+path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 @app.route('/date')
 def index():
@@ -164,6 +173,20 @@ def order(id_order):
     Cars = Samochody.query.all()
     return render_template('order.html', order = Order, cars = Cars)
 
+@app.route("/order/<int:id_order>/pdf")
+
+def generate_pdf(id_order):
+    #url = '/order/<int:id_order>'
+    #options = {"load-error-handling": "ignore"}
+    #url = 'http://google.com'
+    Order = Zlecenia.query.get_or_404(id_order)
+    rendered = render_template('order.html',order = Order)
+    pdf = pdfkit.from_string(rendered, False, configuration=config)
+
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
 
 @app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])
 @login_required
@@ -250,7 +273,6 @@ def delete_order(id_order):
 @app.route("/showorder", methods=['GET', 'POST'])
 def show_order():
     Order = Zlecenia.query.order_by(Zlecenia.czas_r).all()
-
     Car = Samochody.query.all()
 
     #str_time = Order.czas_r.strftime()
