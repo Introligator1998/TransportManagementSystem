@@ -6,6 +6,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime, timedelta
 from OpenSSL import SSL
 from sqlalchemy import asc
+import webbrowser
 
 import pdfkit
 from datetime import datetime, timedelta
@@ -21,10 +22,11 @@ from TMA.models import Uzytkownicy, Samochody, Zlecenia, Notatki
 import sys
 from os.path import dirname, realpath
 
-sys.path.append(dirname(f"{realpath(__file__)}\..\wkhtmltopdf.exe"))
+current_catalog = dirname(realpath(__file__))
+sys.path.append(f'{current_catalog}\..\wkhtmltopdf.exe')
 
 db.create_all()
-path_wkhtmltopdf = f'{dirname(realpath(__file__))}\..\wkhtmltopdf.exe'
+path_wkhtmltopdf = f'{current_catalog}\..\wkhtmltopdf.exe'
 config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 @app.route('/date')
@@ -178,18 +180,16 @@ def order(id_order):
     return render_template('order.html', order = Order, cars = Cars)
 
 @app.route("/order/<int:id_order>/pdf")
-
 def generate_pdf(id_order):
     #url = '/order/<int:id_order>'
-    #options = {"load-error-handling": "ignore"}
-    #url = 'http://google.com'
     Order = Zlecenia.query.get_or_404(id_order)
-    rendered = render_template('order.html',order = Order)
-    pdf = pdfkit.from_string(rendered, False, configuration=config)
+    rendered = render_template('order_report.html',order = Order)
 
-    response = make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+    save_path = f"TMA\\media\\reports\\order_report-{Order.zleceniodawca}-{id_order}.pdf"
+    pdfkit.from_string(rendered, save_path, configuration=config)
+
+    webbrowser.open_new_tab(save_path)
+
     return redirect(url_for('show_order'))
 
 @app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])

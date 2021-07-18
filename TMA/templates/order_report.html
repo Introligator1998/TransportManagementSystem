@@ -1,0 +1,69 @@
+{% block content %}
+    <head>
+    <meta charset="utf-8">
+        <style>
+        #footer {
+            position: fixed;
+            padding: 10px 10px 0px 10px;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ order.customer }}</a>
+        <h1 align="center">Zlecenie przeprowadzkowe</h1>
+          <p></p>
+          <p></p>
+      </div>
+      <table class= "table table-striped">
+          <tr>
+            <td><h4 class="article-title">Klient: </h4></td>
+            <td><h5 class="article-title"> {{ order.zleceniodawca }}</h5></td>
+          </tr>
+          <tr>
+            <td><h4 class="article-title">Telefon: </h4></td>
+            <td><h5 class="article-title"> {{ order.telefon }}</h5></td>
+          </tr>
+          <tr>
+            <td><h4 class="article-title">Lokalizacja: </h4></td>
+            <td><h5 class="article-title"> {{ order.miejsce }}</h5></td>
+          </tr>
+          <tr>
+            <td><h4 class="article-title">Data Zlecenia: </h4></td>
+            <td><h5 class="article-title"> {{ order.czas_r.strftime("%d-%m-%Y %H:%M") }}</h5></td>
+          </tr>
+          <tr>
+            <td><h4 class="article-title">Samochód: </h4></td>
+            <td><h5 class="article-title"> {{ order.nazwa_samochodu }}</h5></td>
+          </tr>
+          <tr>
+            <td><h4 class="article-title">Cena: </h4></td>
+            <td><h5 class="article-title"> {{ order.cena }} </h5></td>
+          </tr>
+          <tr>
+            <td><h4 class="article-title">Uwagi: </h4></td>
+            <td><h5 class="article-title"> {{ order.notatka }}</h5></td>
+          </tr>
+          <tr>
+            <td><h4 class="article-title">Dodał: </h4></td>
+            <td><h5 class="article-title"> {{ order.author }}</h5></td>
+          </tr>
+      </table>
+    </div>
+  </article>
+        <div id="footer">
+            <h6>Administratorem Twoich danych jest Twoja Dostawa Konrad Rokita z siedzibą w Tarnowie ul. Piotra Skargi 29/12, 33-100 Tarnów,
+                wpisanej do Centralnej Ewidencji i Informacji o Działalności Gospodarczej,
+                pod numerem NIP: 8733266927, REGON: 380305297.
+                W sprawach związanych z przetwarzaniem i ochroną danych osobowych wyznaczony został punkt kontaktowy w postaci adresu e-mail:
+                biuro@twojadostawa.pl Kontakt we wskazanych sprawach możliwy jest także w postaci tradycyjnej korespondencji na adres administratora
+                z dopiskiem: „Ochrona Danych Osobowych” oraz osobiście pod adresem ul. Piotra Skargi 29/12, 33-100 Tarnów.</h6>
+        </div>
+
+
+
+{% endblock content %}
