@@ -195,6 +195,8 @@ def generate_pdf(id_order):
 @app.route("/order/<int:id_order>/update", methods=['GET', 'POST'])
 @login_required
 def update_order(id_order):
+
+
     Order = Zlecenia.query.get_or_404(id_order)
     Cars = Samochody.query.all()
 
@@ -204,15 +206,18 @@ def update_order(id_order):
     czas_r = datetime.now()
 
     if form.validate_on_submit():
+
         czas_r = datetime.strptime(form.date_from.data, '%d-%m-%Y %H:%M')
         Order.zleceniodawca = form.customer.data
         Order.miejsce = form.place.data
         Order.czas_r = czas_r
         Order.cena = form.price.data
         Order.notatka = form.notatka.data
+        Order.nazwa_samochodu = form.cars.data
         Order.telefon = form.customer_phone.data
         Order.info = form.info.data
         Order.author = form.author.data
+
         db.session.commit()
         flash('Zlecenie zostało zaktualizowane!', 'success')
         return redirect(url_for('order', id_order=Order.id_zlecenia))
@@ -225,10 +230,10 @@ def update_order(id_order):
         form.customer_phone.data = Order.telefon
         form.info.data = Order.info
         form.author.data = Order.author
-
+        form.cars.data = Order.nazwa_samochodu
 
     return render_template('updateorder.html', title='Update Order',
-                            legend='Update Order',Order = Order,Cars = Cars, form = form, czas_r = czas_r)
+                            legend='Update Order',Cars = Cars,Order = Order, form = form, czas_r = czas_r)
 
 
 
