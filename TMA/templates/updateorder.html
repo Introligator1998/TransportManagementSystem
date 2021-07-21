@@ -30,7 +30,7 @@
             <div class = "col-md-2" >
             <img class = "navbar-brand " src =" ../../static/img/logo.png" width="150" height="130" usemap="#workmap" >
             </div>
-            <div "col-md-4>
+            <div clas = "col-md-4">
             <a class="navbar-brand col-lg-3 " href="/">Twoja Dostawa TMS</a>
             </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -154,6 +154,10 @@
                 <div class="form-group">
                     {{ form.customer.label(class="form-control-label") }}
                     {{ form.customer(class="form-control form-control-lg is-invalid")}}
+                </div>
+                <div class="form-group">
+                    {{ form.city.label(class="form-control-label") }}
+                    {{ form.city(class="form-control form-control-lg is-invalid")}}
                 </div>
                 <div class ="form-group">
                     {{ form.date_from.label(class="form-control-label") }}

@@ -90,6 +90,7 @@ class AddOrder(FlaskForm):
 
     order_id = StringField('ID zlecenia', validators=[DataRequired()])
     customer = StringField('Klient', validators= [DataRequired()])
+    city = StringField('Miasto',validators= [DataRequired()])
     place = StringField('Adresy')
     price = StringField('Wartość zlecenia')
     customer_phone = StringField('Telefon do zleceniodawcy')
@@ -97,14 +98,15 @@ class AddOrder(FlaskForm):
     id_car = StringField('Dodaj Samochod', validators = [DataRequired()])
     notatka = TextAreaField('Opis')
     sub = SubmitField('Dodaj Zlecenie')
-    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Google'), ('2', 'Olx'), ('3', 'Gumtree'),('4', 'Fixly'),('5','Polecenie'), ('6','Stały klient'),('7','Ulotka'), ('8', 'Inne')])
+    info = SelectField(u'Skąd się o nas dowiedziałeś ?',choices=[('1', 'Wyszukanie w Google'), ('2', 'Wizytówka Google'), ('3', 'Olx'), ('4', 'Gumtree'), ('5', 'Fixly'), ('6', 'Polecenie'), ('7', 'Stały klient'), ('8', 'Ulotka'),('9', 'Inne')])
     author = StringField('Zlecenie dodał:', validators = [DataRequired()])
 
 class UpdateOrder(FlaskForm):
 
     #order_id = StringField('ID zlecenia', validators=[DataRequired()])
     customer = StringField('Klient',validators= [DataRequired()])
-    place = StringField('Miejsce zlecenia')
+    miasto = StringField('Miasto',validators= [DataRequired()])
+    city = StringField('Miejsce zlecenia')
     price = StringField('Wartość zlecenia')
     customer_phone = StringField('Telefon do zleceniodawcy')
     date_from = StringField('Czas rozpoczęcia')
@@ -112,7 +114,7 @@ class UpdateOrder(FlaskForm):
     # date_to = StringField('Czas zakończenia', validators=[DataRequired()])
     sub = SubmitField('Aktualizuj Zlecenie')
     notatka = TextAreaField('Opis')
-    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Google'), ('2', 'Olx'), ('3', 'Gumtree'),('4', 'Fixly'),('5','Polecenie'), ('6','Stały klient'),('7','Ulotka'), ('8', 'Inne')])
+    info = SelectField(u'Skąd się o nas dowiedziałeś ?', choices=[('1', 'Wyszukanie w Google'), ('2', 'Wizytówka Google'), ('3', 'Olx'), ('4', 'Gumtree'), ('5', 'Fixly'), ('6', 'Polecenie'), ('7', 'Stały klient'), ('8', 'Ulotka'), ('9', 'Inne')])
     author = StringField('Zlecenie dodał:', validators = [DataRequired()])
 
 class Date(FlaskForm):

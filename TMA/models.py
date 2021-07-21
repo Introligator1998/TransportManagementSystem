@@ -38,6 +38,7 @@ class Samochody(db.Model):
 class Zlecenia (db.Model):
     __tablename__ = 'zlecenia'
     id_zlecenia = db.Column(db.Integer, primary_key = True)
+    miasto = db.Column(db.String(50))
     miejsce = db.Column(db.String(150))
     # tu był string
     czas_r = db.Column(db.DateTime(30), nullable = False)
@@ -55,6 +56,7 @@ class Notatki(db.Model):
     id_notatki = db.Column(db.Integer, primary_key=True)
     tytul = db.Column(db.String(30))
     tresc = db.Column(db.String(500))
+    time = db.Column(db.String(50))
 
 
 class Uzytkownicy(db.Model, UserMixin):

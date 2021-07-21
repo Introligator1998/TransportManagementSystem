@@ -24,6 +24,7 @@ from os.path import dirname, realpath
 
 current_catalog = dirname(realpath(__file__))
 sys.path.append(f'{current_catalog}\..\wkhtmltopdf.exe')
+print(current_catalog)
 
 db.create_all()
 path_wkhtmltopdf = f'{current_catalog}\..\wkhtmltopdf.exe'
@@ -70,7 +71,7 @@ def add_order():
         car_name = Samochody.query.filter_by(id_samochodu=form.id_car.data).first().nazwa
 
         date_time_obj = datetime.strptime(form.date_from.data, '%Y/%m/%d %H:%M')
-        order = Zlecenia(miejsce=form.place.data, cena=form.price.data, zleceniodawca=form.customer.data,
+        order = Zlecenia(miejsce=form.place.data,miasto = form.city.data, cena=form.price.data, zleceniodawca=form.customer.data,
                          telefon=form.customer_phone.data, czas_r=date_time_obj, id_samochodu=form.id_car.data,notatka = form.notatka.data,
                          nazwa_samochodu=car_name, info = form.info.data, author = form.author.data)
         
@@ -209,6 +210,7 @@ def update_order(id_order):
 
         czas_r = datetime.strptime(form.date_from.data, '%d-%m-%Y %H:%M')
         Order.zleceniodawca = form.customer.data
+        Order.miasto = form.city.data
         Order.miejsce = form.place.data
         Order.czas_r = czas_r
         Order.cena = form.price.data
@@ -223,6 +225,7 @@ def update_order(id_order):
         return redirect(url_for('order', id_order=Order.id_zlecenia))
     elif request.method == 'GET':
         form.customer.data = Order.zleceniodawca
+        form.city.data = Order.miasto
         form.place.data = Order.miejsce
         czas_r = Order.czas_r
         form.price.data = Order.cena
@@ -410,11 +413,16 @@ def add_car():
 def add_note():
     form = AddNote()
     if form.validate_on_submit():
-        note = Notatki(tytul=form.tytul.data, tresc=form.tresc.data)
+
+        adding_note_time = datetime.now()
+        adding_note_time_stripped = datetime.strftime(adding_note_time, '%d-%m-%Y %H:%M')
+        note = Notatki(tytul=form.tytul.data, tresc=form.tresc.data, time = adding_note_time_stripped)
         db.session.add(note)
         db.session.commit()
+        #adding_note_time_stripped = datetime.strptime(adding_note_time, '%d-%m-%Y %H:%M')
+        print(adding_note_time_stripped)
         flash('Dodano notatkę!', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('show_notes'))
     return render_template('addnote.html', form=form)
 
 
@@ -436,6 +444,11 @@ def note(id_note):
 def update_note(id_note):
     note = Notatki.query.get_or_404(id_note)
     form = UpdateNote()
+
+    adding_note_time = datetime.now()
+    adding_note_time_stripped = datetime.strftime(adding_note_time, '%d-%m-%Y %H:%M')
+    Notatki(tytul=form.tytul.data, tresc=form.tresc.data, time=adding_note_time_stripped)
+
 
     if form.validate_on_submit():
         note.tytul = form.tytul.data
